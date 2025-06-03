@@ -5,6 +5,7 @@ import {
 import Root from "./Root";
 import Login from "../Form/Login";
 import Register from "../Form/Register";
+import Error from "../Error/Error";
 
 export const router = createBrowserRouter([
     {
@@ -18,5 +19,9 @@ export const router = createBrowserRouter([
     {
         path: '/register',
         Component: Register
-    }
+    },
+    {
+        path: "*",
+        element: <Error />,
+    },
 ]);
