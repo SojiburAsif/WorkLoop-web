@@ -1,53 +1,102 @@
-import React from 'react';
-import { Link } from 'react-router'; // ✅ FIXED
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router'; 
 import Lottie from 'lottie-react';
+import Swal from 'sweetalert2';
 import loginAnimation from '../assets/Animation - 1748971877426.json';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const Login = () => {
+    const { loginUser, googleSingIn } = useContext(AuthContext);
+    const [rememberMe, setRememberMe] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!rememberMe) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You must check "Remember me" to continue.',
+            });
+            return;
+        }
 
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        // Replace this with actual authentication logic
-        console.log('Submitted credentials:', { email, password });
+        console.log('Form Submitted:', { email, password });
+
+        loginUser(email, password)
+            .then((res) => {
+                console.log(res);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: `Welcome back, ${email}!`,
+                    
+                });
+                   navigate('/');
+                setError('');
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: error.message || 'Something went wrong during login.',
+                });
+                setError(error.message || 'Login failed.');
+            });
     };
 
+
+
     const handleGoogleSignIn = () => {
-        // Replace with actual Google auth logic
         console.log('Google Sign-In initiated');
+        googleSingIn()
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully!',
+                    text: 'Welcome to the app.',
+                    confirmButtonColor: '#3085d6'
+                });
+                navigate('/');
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Google sign-in failed!',
+                    confirmButtonColor: '#d33'
+                });
+            });
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white ">
-                {/* Left: Animation */}
+        <div className="min-h-screen flex items-center justify-center space-grotesk  bg-white">
+            <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white">
+                {/* Left Animation */}
                 <div className="md:w-1/2 flex items-center justify-center p-8">
                     <Lottie animationData={loginAnimation} loop={true} className="w-80 h-80" />
                 </div>
 
-                {/* Right: Login Form */}
+                {/* Right Form */}
                 <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                    {/* Logo and Heading */}
                     <div className="text-center mb-6">
                         <Link to="/">
-                            <img
-                                src="/e9322ee7-eb8b-4e67-8f61-37f0067e70a1.png"
-                                alt="logo"
-                                className="mx-auto h-16 w-auto"
-                            />
+                            <img src="/e9322ee7-eb8b-4e67-8f61-37f0067e70a1.png" alt="logo" className="mx-auto h-16 w-auto" />
                         </Link>
                         <h2 className="mt-4 text-3xl font-semibold">Sign In to Your Account</h2>
                     </div>
 
-                    {/* Form */}
                     <form className="space-y-6" onSubmit={handleSubmit}>
-                        {/* Email */}
                         <div>
-                            <label htmlFor="email" className="block text-base font-medium">
-                                Email address
-                            </label>
+                            <label htmlFor="email" className="block text-base font-medium">Email address</label>
                             <input
                                 id="email"
                                 name="email"
@@ -58,11 +107,8 @@ const Login = () => {
                             />
                         </div>
 
-                        {/* Password */}
                         <div>
-                            <label htmlFor="password" className="block text-base font-medium">
-                                Password
-                            </label>
+                            <label htmlFor="password" className="block text-base font-medium">Password</label>
                             <input
                                 id="password"
                                 name="password"
@@ -73,34 +119,40 @@ const Login = () => {
                             />
                         </div>
 
-
-
-                        {/* Remember Me & Forgot Password */}
+                        {/* Remember Me + Forgot */}
                         <div className="flex items-center justify-between">
                             <label className="flex items-center space-x-2">
-                                <input type="checkbox" className="h-5 w-5 rounded border-gray-300" />
+                                <input
+                                    type="checkbox"
+                                    className="h-5 w-5 rounded border-gray-300"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
+                                />
                                 <span className="text-sm">Remember me</span>
                             </label>
-                            <a href="#" className="text-sm text-blue-500 hover:underline">
-                                Forgot password?
-                            </a>
+                            <a href="#" className="text-sm text-blue-500 hover:underline">Forgot password?</a>
                         </div>
 
-                        {/* Submit */}
+                        {/* Error Message */}
+                        {error && <p className="text-red-600 text-sm">{error}</p>}
+
+                        {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full flex justify-center text-lg bg-slate-900 font-medium text-white hover:rounded-full rounded-lg mx-2 px-7 py-3 transition hover:bg-slate-950">
+                            className="w-full flex justify-center text-lg bg-slate-900 font-medium text-white hover:rounded-full rounded-lg mx-2 px-7 py-3 transition hover:bg-slate-950"
+                        >
                             Sign In
                         </button>
                     </form>
 
-                    {/* Google Sign-In */}
+                    {/* Google Sign In */}
                     <div className="mt-8">
-                        <p className="text-center text-sm  text-gray-500">Or continue with</p>
+                        <p className="text-center text-sm text-gray-500">Or continue with</p>
                         <button
                             type="button"
                             onClick={handleGoogleSignIn}
-                            className="mt-4 ml-2 w-full flex items-center justify-center px-6 py-3 border border-gray-300 rounded-md bg-white text-sm font-medium hover:bg-gray-50 transition">
+                            className="mt-4 ml-2 w-full flex items-center justify-center px-6 py-3 border border-gray-300 rounded-md bg-white text-sm font-medium hover:bg-gray-50 transition"
+                        >
                             <svg className="h-6 w-6 mr-2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="#EA4335" d="M24 9.5c3.35 0 6.08 1.15 8.33 3.4l6.25-6.25C34.18 3.05 29.43 1 24 1 14.62 1 6.86 6.93 3.37 15.85l7.44 5.77C12.28 16.27 17.68 9.5 24 9.5z" />
                                 <path fill="#4285F4" d="M46.5 24c0-1.6-.15-3.13-.43-4.62H24v8.75h12.73c-.55 2.92-2.18 5.4-4.65 7.07l7.13 5.53C42.63 37.34 46.5 31.24 46.5 24z" />
@@ -111,12 +163,9 @@ const Login = () => {
                         </button>
                     </div>
 
-                    {/* Register Link */}
-                    <p className="mt-8 text-center  text-gray-500">
+                    <p className="mt-8 text-center text-gray-500">
                         Not a member yet?{' '}
-                        <Link to="/register" className="text-blue-600 hover:underline">
-                            Create an account
-                        </Link>
+                        <Link to="/register" className="text-blue-600 hover:underline">Create an account</Link>
                     </p>
                 </div>
             </div>

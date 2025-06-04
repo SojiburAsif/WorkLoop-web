@@ -1,2 +1,23 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+
+.poppins-font {
+    font-family: "Poppins", sans-serif;
+}
+
+.roboto-font {
+    font-family: "Roboto", sans-serif;
+}
+
+.fontawesome {
+    font-family: "Font Awesome 6 Free";
+    /* Or "Font Awesome 5 Free" depending on version */
+    font-weight: 900;
+    /* For solid icons */
+}
+.space-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+}

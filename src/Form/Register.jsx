@@ -1,10 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router'; // ✅ FIXED
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
+import Swal from 'sweetalert2';
 
 import registerAnimation from '../assets/Animation - 1748973418078.json';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const Register = () => {
+    const navigate = useNavigate();
+    const { createUser, updateUser, setuser, googleSingIn } = useContext(AuthContext);
+
     const handleRegister = (e) => {
         e.preventDefault();
 
@@ -12,34 +17,90 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const confirmPassword = e.target.confirmPassword.value;
-        const photoURL = e.target.photoURL.value;
+        const photo = e.target.photoURL.value;
         const agree = e.target.privacy.checked;
 
         if (!agree) {
-            alert("You must agree to the privacy policy.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'You must agree to the privacy policy.',
+            });
             return;
         }
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            Swal.fire({
+                icon: 'error',
+                title: 'Password Mismatch',
+                text: 'Passwords do not match!',
+            });
             return;
         }
 
-        console.log('User info:', { name, email, password, photoURL });
-        // You can now send this to Firebase or your server
+        createUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                updateUser({ displayName: name, photoURL: photo })
+                    .then(() => {
+                        setuser({
+                            ...user,
+                            displayName: name,
+                            photoURL: photo,
+                        });
+                        navigate('/');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setuser(user);
+                    });
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Account created successfully!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                    text: error.message,
+                });
+            });
     };
 
-   
+    const handleGoogleSignIn = () => {
+        googleSingIn()
+            .then((result) => {
+                const user = result.user;
+                setuser(user);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Logged in successfully via Google!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                navigate('/');
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Google Sign-In Failed',
+                    text: error.message,
+                });
+            });
+    };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-lg">
-                {/* Left: Lottie */}
+        <div className="min-h-screen flex items-center justify-center space-grotesk  bg-white">
+            <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white">
                 <div className="md:w-1/2 flex items-center justify-center p-8">
                     <Lottie animationData={registerAnimation} loop={true} className="w-80 h-80" />
                 </div>
 
-                {/* Right: Form */}
                 <div className="md:w-1/2 p-8 flex flex-col justify-center">
                     <div className="text-center mb-6">
                         <Link to="/">
@@ -53,7 +114,6 @@ const Register = () => {
                     </div>
 
                     <form className="space-y-6" onSubmit={handleRegister}>
-                        {/* Name, Photo, Email, Password */}
                         <div>
                             <label htmlFor="name" className="block text-base font-medium">
                                 Full Name
@@ -123,7 +183,6 @@ const Register = () => {
                             />
                         </div>
 
-                        {/* Privacy Policy */}
                         <div className="flex items-center space-x-2">
                             <input
                                 type="checkbox"
@@ -147,14 +206,17 @@ const Register = () => {
                         </button>
                     </form>
 
-                    {/* Google Sign-In Button */}
                     <div className="mt-4">
-                            <p className="text-center text-sm  text-gray-500">Or continue with</p>
+                        <p className="text-center text-sm text-gray-500">Or continue with</p>
                         <button
-                         
                             className="w-full mt-3 ml-2 flex justify-center text-lg bg-white border border-gray-300 text-gray-700 rounded-lg py-3 hover:bg-gray-100 transition"
+                            onClick={()=>handleGoogleSignIn()}
                         >
-                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-6 h-6 mr-3" />
+                            <img
+                                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                                alt="Google"
+                                className="w-6 h-6 mr-3"
+                            />
                             Continue with Google
                         </button>
                     </div>
