@@ -8,9 +8,12 @@ const Header = () => {
         photoURL: 'https://i.pravatar.cc/40'
     };
 
+    const navLinkClass = ({ isActive }) =>
+        `hover:underline hover:text-blue-600 transition duration-200 ${isActive ? 'text-blue-700 font-semibold' : ''}`;
+
     return (
-        <div className="shadow-sm  ">
-            <div className="navbar bg-slate-100 min-h-[80px] px-4 ">
+        <div className="shadow-sm">
+            <div className="navbar bg-slate-100 min-h-[80px] px-4">
                 {/* Navbar Start */}
                 <div className="navbar-start">
                     <div className="dropdown lg:hidden">
@@ -22,17 +25,17 @@ const Header = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
-                            <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/services">Services</NavLink></li>
+                            <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
+                            <li><NavLink to="/services" className={navLinkClass}>Services</NavLink></li>
                             {user && (
                                 <li>
                                     <details>
                                         <summary>Dashboard</summary>
                                         <ul className="p-2 text-sm space-y-2">
-                                            <li><NavLink to="/add-service">Add Service</NavLink></li>
-                                            <li><NavLink to="/manage-service">Manage Service</NavLink></li>
-                                            <li><NavLink to="/booked-services">Booked Services</NavLink></li>
-                                            <li><NavLink to="/service-to-do">Service-To-Do</NavLink></li>
+                                            <li><NavLink to="/add-service" className={navLinkClass}>Add Service</NavLink></li>
+                                            <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
+                                            <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
+                                            <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
                                         </ul>
                                     </details>
                                 </li>
@@ -48,34 +51,27 @@ const Header = () => {
                     </Link>
                 </div>
 
-
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-lg font-medium gap-2">
-                        <li><NavLink to="/">Home</NavLink></li>
-                        <li><NavLink to="/services">Services</NavLink></li>
+                        <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
+                        <li><NavLink to="/services" className={navLinkClass}>Services</NavLink></li>
                         {user && (
-                            <li>
-                                <details>
-                                    <summary>Dashboard</summary>
-                                    <ul className="p-2 text-sm space-y-2">
-                                        <li><NavLink to="/add-service">Add Service</NavLink></li>
-                                        <li><NavLink to="/manage-service">Manage Service</NavLink></li>
-                                        <li><NavLink to="/booked-services">Booked Services</NavLink></li>
-                                        <li><NavLink to="/service-to-do">Service-To-Do</NavLink></li>
-                                    </ul>
-                                </details>
+                            <li className="relative group">
+                                <span className="cursor-pointer">Dashboard</span>
+                                <ul className="absolute hidden group-hover:flex flex-col p-2 bg-white text-black rounded shadow-lg mt-6 z-10 text-sm space-y-2 min-w-[180px]">
+                                    <li><NavLink to="/add-service" className={navLinkClass}>Add Service</NavLink></li>
+                                    <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
+                                    <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
+                                    <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
+                                </ul>
                             </li>
                         )}
                     </ul>
                 </div>
 
-
-
                 {/* Navbar End */}
                 <div className="navbar-end gap-2">
-
-                    <label className="swap swap-rotate ">
-                        {/* this hidden checkbox controls the state */}
+                    <label className="swap swap-rotate">
                         <input type="checkbox" />
 
                         {/* sun icon */}
@@ -96,21 +92,19 @@ const Header = () => {
                                 d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
                         </svg>
                     </label>
+
                     {/* 👇 Show Login & Register when NOT logged in */}
                     {user && (
                         <>
-                            <Link to="/login" className=" text-lg font-medium mx-2 hover:underline hover:text-blue-900">Login</Link>
+                            <Link to="/login" className="text-lg font-medium mx-2 hover:underline hover:text-blue-900">Login</Link>
                             <Link
                                 to="/register"
-                                className=" text-lg  bg-white  font-medium  text-black  rounded-full  mx-2  px-7  py-3 transition  hover:bg-black  hover:text-white  "
+                                className="text-lg bg-white font-medium text-black rounded-full mx-2 px-7 py-3 transition hover:bg-black hover:text-white"
                             >
                                 Register
                             </Link>
-
-
                         </>
                     )}
-
 
                     {!user && (
                         <div className="dropdown dropdown-end">

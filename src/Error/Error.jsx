@@ -1,44 +1,52 @@
 import React from "react";
+import Lottie from "lottie-react";
+import animation404 from "../assets/Animation - 1748975144594.json"; // Your Lottie JSON
 
 const Error = () => {
-    return (
-        <>
-            <section className="relative z-10 bg-primary py-[120px]">
-                <div className="container mx-auto">
-                    <div className="-mx-4 flex">
-                        <div className="w-full px-4">
-                            <div className="mx-auto max-w-[400px] text-center">
-                                <h2 className="mb-2 text-[50px] font-bold leading-none text-white sm:text-[80px] md:text-[100px]">
-                                    404
-                                </h2>
-                                <h4 className="mb-3 text-[22px] font-semibold leading-tight text-white">
-                                    Oops! That page can’t be found
-                                </h4>
-                                <p className="mb-8 text-lg text-white">
-                                    The page you are looking for it maybe deleted
-                                </p>
-                                <a
-                                    href="javascript:void(0)"
-                                    className="inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white hover:text-primary"
-                                >
-                                    Go To Home
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <section className="relative z-10 bg-primary w-full h-screen flex items-center justify-center overflow-hidden">
+      {/* Floating decorative circles */}
+      <div className="absolute -top-20 -left-20 h-40 w-40 rounded-full bg-white opacity-10 animate-ping"></div>
+      <div className="absolute bottom-10 right-10 h-32 w-32 rounded-full bg-white opacity-20"></div>
 
-                <div className="absolute left-0 top-0 -z-10 flex h-full w-full items-center justify-between space-x-5 md:space-x-8 lg:space-x-14">
-                    <div className="h-full w-1/3 bg-gradient-to-t from-[#FFFFFF14] to-[#C4C4C400]"></div>
-                    <div className="flex h-full w-1/3">
-                        <div className="h-full w-1/2 bg-gradient-to-b from-[#FFFFFF14] to-[#C4C4C400]"></div>
-                        <div className="h-full w-1/2 bg-gradient-to-t from-[#FFFFFF14] to-[#C4C4C400]"></div>
-                    </div>
-                    <div className="h-full w-1/3 bg-gradient-to-b from-[#FFFFFF14] to-[#C4C4C400]"></div>
-                </div>
-            </section>
-        </>
-    );
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0">
+        {/* Left: Lottie Animation */}
+        <div className="md:w-1/2 flex items-center justify-center animate-fade-in">
+          <Lottie
+            animationData={animation404}
+            loop={true}
+            className="w-80 h-80 md:w-96 md:h-96"
+          />
+        </div>
+
+        {/* Right: Text Content */}
+        <div className="md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left space-y-6 animate-fade-in">
+          {/* Semi-transparent diagonal overlay */}
+          <div className="absolute inset-0 transform -rotate-6 bg-gradient-to-r from-[#ffffff20] to-[#ffffff00] pointer-events-none"></div>
+
+          <h2 className="relative z-10 text-[80px] font-extrabold leading-none text-white sm:text-[120px] md:text-[160px]">
+            404
+          </h2>
+          <h4 className="relative z-10 text-[24px] font-semibold leading-tight text-white">
+            Oops! That page can’t be found
+          </h4>
+          <p className="relative z-10 max-w-[400px] text-lg text-white">
+            The page you’re looking for may have been moved or deleted.
+          </p>
+          <a
+            href="/"
+            className="relative z-10 inline-block rounded-lg bg-white px-8 py-3 text-base font-semibold text-primary shadow-lg transition hover:bg-opacity-90 hover:shadow-2xl"
+          >
+            Go To Home
+          </a>
+        </div>
+      </div>
+
+      {/* More decorative shapes */}
+      <div className="absolute top-1/3 left-1/2 h-20 w-20 bg-white rounded-full opacity-5 mix-blend-overlay"></div>
+      <div className="absolute bottom-1/4 left-1/4 h-16 w-16 bg-white rounded-full opacity-5 mix-blend-overlay"></div>
+    </section>
+  );
 };
 
 export default Error;
