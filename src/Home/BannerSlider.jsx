@@ -1,4 +1,7 @@
+// src/components/BannerSlider.jsx
+
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
     {
@@ -43,8 +46,35 @@ const BannerSlider = () => {
         setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     const goToSlide = (index) => setCurrentIndex(index);
 
+    // ================================
+    // Typewriter-style Variants
+    // ================================
+    // প্রতিটি ক্যারেক্টারের জন্য অ্যানিমেশন সেটআপ
+    const letterVariant = {
+        hidden: { opacity: 0, y: 20 },
+        visible: (i) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.2,
+                ease: "easeOut",
+                delay: i * 0.05, // ক্যারেক্টারের ইনডেক্স অনুযায়ী দেরি
+            },
+        }),
+    };
+
+    // হেডিং এর পুরো কন্টেইনার যা স্ট্যাগার করে চাইল্ডগুলো চালাবে
+    const headingContainer = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.05, // প্রতিটি চাইল্ডের মধ্যে 0.05s পিছিয়ে শুরু
+            },
+        },
+    };
+
     return (
-        <div className="relative w-full h-full overflow-hidden space-grotesk  rounded-3xl">
+        <div className="relative w-full h-full overflow-hidden rounded-3xl">
             {/* Slides Container */}
             <div
                 className="flex transition-transform duration-700 ease-out h-full"
@@ -60,27 +90,60 @@ const BannerSlider = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900/50 to-transparent rounded-3xl" />
 
                         {/* Content Card */}
-                        <div className="relative z-10 bg-opacity-70 rounded-xl ml-9 md:ml-14 p-4 md:p-8 max-w-xl md:max-w-3xl text-left">
-                            <h2 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
-                                {slide.heading}
-                            </h2>
-                            <p className="text-sm sm:text-base md:text-lg text-gray-100 mb-6">
-                                {slide.subtext}
-                            </p>
-                            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                                <button className="px-6 py-3 sm:px-8 sm:py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-black transition text-sm sm:text-base min-w-[130px]">
-                                    Get It Now
-                                </button>
-                                <button className="px-6 py-3 sm:px-8 sm:py-3 text-white border border-gray-400 hover:border-white rounded-full hover:bg-gray-700 hover:text-white transition text-sm sm:text-base min-w-[130px]">
-                                    Read More
-                                </button>
-                            </div>
+                        <div className="relative z-10 ml-4 md:ml-10 p-4 md:p-8 max-w-xl md:max-w-3xl text-left">
+                            <AnimatePresence exitBeforeEnter>
+                                {currentIndex === slide.id - 1 && (
+                                    <motion.div
+                                        key={`content-${slide.id}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        {/* ===== Typewriter-Style Heading ===== */}
+                                        <motion.div
+                                            className="flex flex-wrap text-white font-bold mb-4"
+                                            variants={headingContainer}
+                                            initial="hidden"
+                                            animate="visible"
+                                        >
+                                            {slide.heading.split("").map((char, index) => (
+                                                <motion.span
+                                                    key={`char-${slide.id}-${index}`}
+                                                    className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl whitespace-pre"
+                                                    variants={letterVariant}
+                                                    custom={index}
+                                                >
+                                                    {char}
+                                                </motion.span>
+                                            ))}
+                                        </motion.div>
+
+                                        {/* ===== Subtext (Fade-In Slowly) ===== */}
+
+                                        <p className="text-white mb-6 text-base sm:text-sm md:text-lg">
+                                            {slide.subtext}
+                                        </p>
+
+
+                                        {/* ===== Buttons (No Motion) ===== */}
+                                        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                                            <button className="px-6 py-3 sm:px-8 sm:py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-black transition text-sm sm:text-base min-w-[130px]">
+                                                Get It Now
+                                            </button>
+                                            <button className="px-6 py-3 sm:px-8 sm:py-3 text-white border border-gray-400 hover:border-white rounded-full hover:bg-gray-700 hover:text-white transition text-sm sm:text-base min-w-[130px]">
+                                                Read More
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Prev Arrow: white circle, positioned at middle-left */}
+            {/* Prev Arrow */}
             <button
                 onClick={prevSlide}
                 aria-label="Previous Slide"
@@ -96,7 +159,7 @@ const BannerSlider = () => {
                 </svg>
             </button>
 
-            {/* Next Arrow: white circle, positioned at middle-right */}
+            {/* Next Arrow */}
             <button
                 onClick={nextSlide}
                 aria-label="Next Slide"

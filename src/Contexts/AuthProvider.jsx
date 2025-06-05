@@ -1,80 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import {
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    updateProfile,
-    GoogleAuthProvider,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.init';
-import Loding from '../Loding/Loding';
-
+import { GoogleAuthProvider } from 'firebase/auth';
+import Loading from '../Loding/Loding';
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [user, setuser] = useState(null);
+    const [loading, setLoading] = useState(true)
     const googleProvider = new GoogleAuthProvider();
 
-    // Create a new user with email and password
+
     const createUser = (email, password) => {
-        setLoading(true);
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
-    // Login user with email and password
     const loginUser = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    };
-
-    // Google sign in
-    const googleSignIn = () => {
-        setLoading(true);
-        return signInWithPopup(auth, googleProvider);
-    };
-
-    // Update user profile
-    const updateUser = (updateData) => {
-        return updateProfile(auth.currentUser, updateData);
-    };
-
-    // Logout user
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
     const logout = () => {
-        setLoading(true);
-        return signOut(auth);
+        return signOut(auth)
+    }
+    const updateUser = (updateData) => {
+        return updateProfile(auth.currentUser, updateData)
     };
 
-    // Observe auth state change
+
+    const googleSingIn = () => {
+        return signInWithPopup(auth, googleProvider)
+    }
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
+        const unsubscribr = onAuthStateChanged(auth, (currentuser,) => {
+            setuser(currentuser)
+            // SiAwselasticloadbalancing(false)
+            setLoading(false)
         });
+        return () => {
+            unsubscribr();
+        }
 
-        return () => unsubscribe();
-    }, []);
 
-    const authInfo = {
+
+    });
+
+
+
+    const userInfo = {
         user,
-        loading,
         createUser,
         loginUser,
-        googleSignIn,
-        updateUser,
         logout,
-        setUser,
+        googleSingIn,
+        updateUser,
+        setuser,
+        loading,
     };
-
-    // Show loading spinner while checking auth
     if (loading) {
-        return <Loding></Loding>
+        return <Loading></Loading>
     }
-
     return (
-        <AuthContext.Provider value={authInfo}>
+        <AuthContext.Provider value={userInfo}>
             {children}
         </AuthContext.Provider>
     );

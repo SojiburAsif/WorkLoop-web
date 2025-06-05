@@ -29,7 +29,7 @@ const Header = () => {
                                     <details>
                                         <summary>Dashboard</summary>
                                         <ul className="p-2 text-sm space-y-2">
-                                            <li><NavLink to="/add-service" className={navLinkClass}>Add Service</NavLink></li>
+                                            <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
                                             <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
                                             <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
                                             <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
@@ -41,8 +41,8 @@ const Header = () => {
                     </div>
                     <Link to="/">
                         <img
-                            className="w-28 h-auto object-contain"
-                            src="/e9322ee7-eb8b-4e67-8f61-37f0067e70a1.png"
+                            className="w-46 h-auto object-contain"
+                            src="ChatGPT Image Jun 6, 2025, 12_40_50 AM.png"
                             alt="Workloop Logo"
                         />
                     </Link>
@@ -57,7 +57,7 @@ const Header = () => {
                             <li className="relative group">
                                 <span className="cursor-pointer">Dashboard</span>
                                 <ul className="absolute hidden group-hover:flex flex-col p-2 bg-white text-black rounded shadow-lg mt-6 z-10 text-sm space-y-2 min-w-[180px]">
-                                    <li><NavLink to="/add-service" className={navLinkClass}>Add Service</NavLink></li>
+                                    <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
                                     <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
                                     <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
                                     <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>

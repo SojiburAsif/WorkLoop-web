@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,9 @@ import { AuthContext } from '../Contexts/AuthContext';
 const Register = () => {
     const navigate = useNavigate();
     const { createUser, updateUser, setuser, googleSingIn } = useContext(AuthContext);
-
+   
+    const loction = useLocation()
+    const form = loction.state || '/'
     const handleRegister = (e) => {
         e.preventDefault();
 
@@ -49,7 +51,7 @@ const Register = () => {
                             displayName: name,
                             photoURL: photo,
                         });
-                        navigate('/');
+                        navigate(form);
                     })
                     .catch((error) => {
                         console.log(error);
@@ -83,7 +85,7 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 2000,
                 });
-                navigate('/');
+                navigate(form);
             })
             .catch((error) => {
                 Swal.fire({
@@ -210,7 +212,7 @@ const Register = () => {
                         <p className="text-center text-sm text-gray-500">Or continue with</p>
                         <button
                             className="w-full mt-3 ml-2 flex justify-center text-lg bg-white border border-gray-300 text-gray-700 rounded-lg py-3 hover:bg-gray-100 transition"
-                            onClick={()=>handleGoogleSignIn()}
+                            onClick={() => handleGoogleSignIn()}
                         >
                             <img
                                 src="https://www.svgrepo.com/show/475656/google-color.svg"

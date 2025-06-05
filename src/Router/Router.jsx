@@ -7,6 +7,7 @@ import Login from "../Form/Login";
 import Register from "../Form/Register";
 import Error from "../Error/Error";
 import Home from "../Home/Home";
+import AddTask from "../Form/DataAdd";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +17,11 @@ export const router = createBrowserRouter([
             index: true,
             Component: Home,
             path: '/'
-        }
+        },
+        {
+            path: 'addtask',
+            Component: AddTask
+        },
 
         ]
     },
