@@ -2,157 +2,213 @@ import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
 import loginAnimation from '../assets/Animation - 1749106191160.json';
 import { AuthContext } from '../Contexts/AuthContext';
-import { useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
+import axios from 'axios';
 
-const AddTask = () => {
+const AddService = () => {
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
 
-    const handleAddTask = (e) => {
+    const handleAddService = (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        const taskData = Object.fromEntries(formData.entries());
+        const rawData = Object.fromEntries(formData.entries());
 
-        taskData.createdAt = new Date().toISOString();
+        const serviceArea = rawData.serviceArea
+            .split(',')
+            .map(area => area.trim())
+            .filter(area => area.length > 0);
 
-        fetch('https://backend-zeta-ochre-92.vercel.app/working', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(taskData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
-                    Swal.fire({
-                        title: "Task Added Successfully!",
-                        icon: "success"
-                    });
-                    form.reset();
-                    navigate('/main-tasks');
-                }
+        const priceRangeArray = rawData.price
+            .split('-')
+            .map(price => price.trim())
+            .filter(price => price.length > 0);
+
+        const serviceData = {
+            title: rawData.title,
+            serviceImageUrl: rawData.serviceImageUrl,
+            serviceName: rawData.serviceName,
+            serviceArea,
+            description: rawData.description,
+            priceRange: priceRangeArray,
+            currency: rawData.currency,
+            providerName: user?.displayName || '',
+            providerEmail: user?.email || '',
+            providerImage: user?.photoURL || '',
+        };
+
+        console.log("Final Data To Send:", serviceData);
+
+        axios.post('http://localhost:3000/working', serviceData)
+            .then(res => {
+                console.log(res);
+                form.reset();
+                Swal.fire("Success!", "Service added successfully!", "success");
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire("Error", "Something went wrong!", "error");
             });
     };
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center px-4 py-10">
-            {/* Form Section */}
-            <div className="w-full max-w-screen-lg flex flex-col md:flex-row items-start gap-10">
-                <form
-                    onSubmit={handleAddTask}
-                    className="w-full md:w-2/3 space-y-6 cursor-default"
-                >
-                    <h2 className="text-3xl font-extrabold text-black text-center">Add Task Details</h2>
+        <section className="relative min-h-screen space-grotesk flex items-center justify-center px-8 py-12">
+            <div className="w-full max-w-screen-xl flex flex-col md:flex-row items-start gap-20">
+                {/* Animation */}
+                <div className="w-full md:w-2/5 flex flex-col items-start justify-start relative -ml-24">
+                    <Lottie
+                        animationData={loginAnimation}
+                        loop={true}
+                        className="w-[520px] h-[620px]"
+                    />
+                </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="title" className="mb-2 text-black font-semibold">Task Title</label>
+                {/* Form */}
+                <form
+                    onSubmit={handleAddService}
+                    className="w-full md:w-3/5 space-y-8 cursor-default text-[18px]"
+                >
+                    <div className="text-center">
+                        <h2 className="text-4xl font-extrabold text-black">Add Service Details</h2>
+                        <p className="text-gray-600 mt-3 text-base">
+                            Fill the form below to publish your service to the platform.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+                        {/* Title */}
+                        <fieldset className="flex flex-col sm:col-span-2">
+                            <label htmlFor="title" className="mb-3 text-black font-semibold">Service Title</label>
                             <input
                                 id="title"
                                 type="text"
                                 name="title"
                                 required
-                                placeholder="Enter Task Title"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black"
+                                placeholder="e.g. Professional AC Repair at Home"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
                             />
                         </fieldset>
 
+                        {/* Image URL */}
                         <fieldset className="flex flex-col">
-                            <label htmlFor="category" className="mb-2 text-black font-semibold">Category</label>
-                            <select
-                                id="category"
-                                name="category"
+                            <label htmlFor="serviceImageUrl" className="mb-3 text-black font-semibold">Image URL</label>
+                            <input
+                                id="serviceImageUrl"
+                                type="url"
+                                name="serviceImageUrl"
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black"
+                                placeholder="https://example.com/image.jpg"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
+                            />
+                        </fieldset>
+
+                        {/* Service Name */}
+                        <fieldset className="flex flex-col">
+                            <label htmlFor="serviceName" className="mb-3 text-black font-semibold">Service Name</label>
+                            <input
+                                id="serviceName"
+                                type="text"
+                                name="serviceName"
+                                required
+                                placeholder="Enter Service Name"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
+                            />
+                        </fieldset>
+
+                        {/* Price Range */}
+                        <fieldset className="flex flex-col">
+                            <label htmlFor="price" className="mb-3 text-black font-semibold">Price Range</label>
+                            <input
+                                id="price"
+                                type="text"
+                                name="price"
+                                required
+                                placeholder="e.g. 1000 - 3000"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
+                            />
+                        </fieldset>
+
+                        {/* Currency */}
+                        <fieldset className="flex flex-col">
+                            <label htmlFor="currency" className="mb-3 text-black font-semibold">Currency</label>
+                            <select
+                                id="currency"
+                                name="currency"
+                                required
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-white text-lg"
                             >
-                                <option value="Web Development">Web Development</option>
-                                <option value="Design">Design</option>
-                                <option value="Writing">Writing</option>
-                                <option value="Marketing">Marketing</option>
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD (US Dollar)</option>
+                                <option value="BDT">BDT (Bangladeshi Taka)</option>
+                                <option value="EUR">EUR (Euro)</option>
+                                <option value="GBP">GBP (British Pound)</option>
+                                <option value="INR">INR (Indian Rupee)</option>
+                                <option value="CAD">CAD (Canadian Dollar)</option>
+                                <option value="AUD">AUD (Australian Dollar)</option>
                             </select>
                         </fieldset>
 
+                        {/* Service Area */}
                         <fieldset className="flex flex-col sm:col-span-2">
-                            <label htmlFor="description" className="mb-2 text-black font-semibold">Description</label>
+                            <label htmlFor="serviceArea" className="mb-3 text-black font-semibold">Service Area</label>
+                            <input
+                                id="serviceArea"
+                                type="text"
+                                name="serviceArea"
+                                required
+                                placeholder="e.g. Dhaka, Chittagong, Sylhet"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
+                            />
+                        </fieldset>
+
+                        {/* Description */}
+                        <fieldset className="flex flex-col sm:col-span-2">
+                            <label htmlFor="description" className="mb-3 text-black font-semibold">Description</label>
                             <textarea
                                 id="description"
                                 name="description"
-                                rows="4"
+                                rows="5"
                                 required
-                                placeholder="Describe the task"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black"
+                                placeholder="Describe your service"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg resize-none"
                             ></textarea>
                         </fieldset>
 
+                        {/* Provider Name */}
                         <fieldset className="flex flex-col">
-                            <label htmlFor="deadline" className="mb-2 text-black font-semibold">Deadline</label>
+                            <label className="mb-3 text-black font-semibold">Provider Name</label>
                             <input
-                                id="deadline"
-                                type="date"
-                                name="deadline"
-                                required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black"
-                            />
-                        </fieldset>
-
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="budget" className="mb-2 text-black font-semibold">Budget</label>
-                            <input
-                                id="budget"
-                                type="number"
-                                name="budget"
-                                required
-                                placeholder="Enter Budget"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black"
-                            />
-                        </fieldset>
-
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="email" className="mb-2 text-black font-semibold">User Email</label>
-                            <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                readOnly
-                                defaultValue={user?.email || ''}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed"
-                            />
-                        </fieldset>
-
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="username" className="mb-2 text-black font-semibold">User Name</label>
-                            <input
-                                id="username"
                                 type="text"
-                                name="username"
+                                value={user?.displayName || ''}
                                 readOnly
-                                defaultValue={user?.displayName || ''}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed"
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed text-lg"
+                            />
+                        </fieldset>
+
+                        {/* Provider Email */}
+                        <fieldset className="flex flex-col">
+                            <label className="mb-3 text-black font-semibold">Provider Email</label>
+                            <input
+                                type="email"
+                                value={user?.email || ''}
+                                readOnly
+                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed text-lg"
                             />
                         </fieldset>
                     </div>
 
+                    {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full py-4 bg-purple-800 text-white font-bold rounded-lg transition hover:bg-purple-600"
+                        className="w-full py-5 bg-purple-800 text-white font-bold rounded-lg transition hover:bg-purple-600 text-lg"
                     >
-                        Add Task
+                        Add Service
                     </button>
                 </form>
-
-                {/* Lottie Animation Section */}
-                <div className="w-full md:w-1/3 flex flex-col items-center justify-end relative">
-                    <Lottie animationData={loginAnimation} loop={true} className="w-[400px] h-[400px]" />
-                    <p className="text-center text-purple-700 font-medium mt-4">
-                        "Turn your ideas into tasks and get things done!"
-                    </p>
-                </div>
             </div>
         </section>
     );
 };
 
-export default AddTask;
+export default AddService;

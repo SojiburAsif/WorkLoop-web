@@ -8,6 +8,8 @@ import Register from "../Form/Register";
 import Error from "../Error/Error";
 import Home from "../Home/Home";
 import AddTask from "../Form/DataAdd";
+import SinglePage from "../Page/SinglePage";
+import PrivateRouter from "../Contexts/PrivateRouter";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +24,13 @@ export const router = createBrowserRouter([
             path: 'addtask',
             Component: AddTask
         },
+        {
+            path: '/working/:id',
+            element: <PrivateRouter>
+                <SinglePage></SinglePage>
+            </PrivateRouter>,
+            loader: ({params})=> fetch(`http://localhost:3000/working/${params.id}`)
+        }
 
         ]
     },

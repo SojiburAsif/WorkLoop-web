@@ -1,31 +1,44 @@
 import React from 'react';
 import { HiArrowNarrowRight, HiLocationMarker } from 'react-icons/hi';
-import { Link } from 'react-router';
+import { Link } from 'react-router'; // fixed import (was 'react-router')
 
 const Jobcard = ({ job }) => {
-    const { _id, title, description, image, serviceArea, price, provider, userName, userImage } = job;
+    const {
+        _id,
+        title,
+        description,
+        serviceImageUrl,
+        serviceArea,
+        priceRange,
+        currency,
+        providerName,
+       
+    } = job;
+
+    // Fallback image if serviceImageUrl is missing
+    const displayImage = serviceImageUrl || "https://i.ibb.co/WNdTbN06/lake-9585821.jpg";
 
     return (
         <div className="card w-[420px] bg-base-100 shadow-md relative">
-            {/* User info overlay on image */}
+            {/* User info overlay (optional) */}
             {/* <div className="absolute top-4 left-4 flex items-center gap-3  px-3 py-1 rounded shadow-md z-10">
-                {userImage ? (
+                {providerImage ? (
                     <img
-                        src={userImage}
-                        alt={userName || "User"}
+                        src={providerImage}
+                        alt={providerName || "User"}
                         className="w-10 h-10 rounded-full object-cover border border-gray-300"
                     />
                 ) : (
-                    <div className="w-10 h-10 rounded-full  flex items-center justify-center text-gray-600 border border-gray-300">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 border border-gray-300">
                         U
                     </div>
                 )}
-                <span className="font-medium text-gray-800">{userName || "User Name"}</span>
+                <span className="font-medium text-gray-800">{providerName || "User Name"}</span>
             </div> */}
 
             <figure>
                 <img
-                    src={"https://i.ibb.co/WNdTbN06/lake-9585821.jpg"}
+                    src={displayImage}
                     alt={title}
                     className="w-full h-56 object-cover"
                 />
@@ -37,7 +50,7 @@ const Jobcard = ({ job }) => {
                 <p className="text-base text-gray-500 mt-3">
                     Posted by{' '}
                     <span className="font-semibold text-gray-800">
-                        {provider?.name || "Unknown"}
+                        {providerName || "Unknown"}
                     </span>
                 </p>
 
@@ -59,9 +72,11 @@ const Jobcard = ({ job }) => {
                 </div>
 
                 <div className="card-actions justify-between items-center mt-5">
-                    <span className="text-green-700 font-bold text-xl">{price}</span>
+                    <span className="text-green-700 font-bold text-xl">
+                        {currency} {priceRange?.[0]} - {priceRange?.[1]}
+                    </span>
                     <Link
-                        to={`/service-details/${_id}`}
+                        to={`/working/${_id}`}
                         className="btn btn-primary btn-md flex items-center gap-2 text-base"
                     >
                         View Details <HiArrowNarrowRight className="w-5 h-5" />

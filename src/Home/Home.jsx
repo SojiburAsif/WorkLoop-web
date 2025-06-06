@@ -9,8 +9,8 @@ const Home = () => {
     const jobsPromis = fetch('http://localhost:3000/working').then(res=> res.json())
     return (
         <div>
-            <div className="bg-gray-100">
-                <div className="w-full h-[750px] m-0 px-7">
+            <div className="">
+                <div className="w-full h-[750px] m-0 py-2 px-7">
                     <BannerSlider />
                 </div>
             </div>
