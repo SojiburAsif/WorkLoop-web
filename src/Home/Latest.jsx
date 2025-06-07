@@ -1,12 +1,10 @@
 // src/pages/CardsPage.jsx
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
+import { ThemeContext } from '../Them/ThemProvider';
 
-// ---------------------
-// Card Data
-// ---------------------
 const cardsData = [
   {
     image: 'https://i.ibb.co/39qWMqsq/sunset-2801778.jpg',
@@ -35,7 +33,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.2, // প্রতিটি কার্ডে 0.2s করে দেরি
+      staggerChildren: 0.2,
     },
   },
 };
@@ -50,8 +48,21 @@ const cardVariants = {
 };
 
 const CardsPage = () => {
+  const { theme } = useContext(ThemeContext);
+
+  // থিম অনুযায়ী ব্যাকগ্রাউন্ড ও টেক্সট কালার ক্লাস
+  const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-white';
+  // এখানে মূল টেক্সটের জন্য কালার
+  const mainTextClass = theme === 'dark' ? 'text-white' : 'text-black';
+  // সাবটেক্সট ও মিউটেড টেক্সটের জন্য
+  const subTextClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
+  // বেজ বা ক্যাটাগরি ব্যাজের জন্য
+  const badgeClass = theme === 'dark' 
+    ? 'badge badge-outline badge-info border-gray-500 text-gray-300' 
+    : 'badge badge-outline badge-info border-blue-500 text-blue-600';
+
   return (
-    <main className="py-12 mt-14 space-grotesk">
+    <main className={`${theme === 'dark' ? ' text-white' : 'bg-white  text-black'} py-12 mt-14 space-grotesk`}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -60,8 +71,10 @@ const CardsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold text-gray-800">Our Latest Features</h1>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+          <h1 className={`text-4xl font-bold ${mainTextClass}`}>
+            Our Latest Features
+          </h1>
+          <p className={`mt-2 ${subTextClass} max-w-2xl mx-auto`}>
             Discover our newest home services and how we’re making your life easier.
           </p>
         </motion.div>
@@ -76,11 +89,13 @@ const CardsPage = () => {
           {cardsData.map((card, idx) => (
             <motion.div
               key={idx}
-              className="bg-white rounded-lg overflow-hidden flex flex-col h-full min-h-[400px] shadow-xl"
+              className={`${bgClass} rounded-lg overflow-hidden flex flex-col h-full min-h-[400px] shadow-xl`}
               variants={cardVariants}
               whileHover={{
                 scale: 1.03,
-                boxShadow: '0px 10px 20px rgba(0,0,0,0.12)',
+                boxShadow: theme === 'dark' 
+                  ? '0px 10px 20px rgba(255,255,255,0.12)' 
+                  : '0px 10px 20px rgba(0,0,0,0.12)',
               }}
             >
               {/* Image */}
@@ -98,24 +113,28 @@ const CardsPage = () => {
               <div className="p-6 flex flex-col flex-1">
                 {/* Category and Date Row */}
                 <div className="flex justify-between items-center mb-2">
-                  <span className="badge badge-outline badge-info">{card.category}</span>
-                  <span className="text-sm text-gray-500">{card.date}</span>
+                  <span className={badgeClass}>
+                    {card.category}
+                  </span>
+                  <span className={`text-sm ${subTextClass}`}>
+                    {card.date}
+                  </span>
                 </div>
 
                 {/* Title */}
                 <motion.h3
-                  className="text-2xl font-semibold text-gray-800 hover:text-blue-600 hover:underline transition"
-                  whileHover={{ color: '#1d4ed8' }} // Tailwind-blue-700 equivalent on hover
+                  className={`text-2xl font-semibold ${mainTextClass} hover:text-blue-600 hover:underline transition`}
+                  whileHover={{ color: '#1d4ed8' }}
                 >
                   {card.title}
                 </motion.h3>
 
-                {/* Read More Link at the bottom */}
+                {/* Read More Link */}
                 <div className="mt-auto pt-6">
                   <motion.a
                     href={card.btnHref}
-                    className="inline-flex text-xl items-center text-gray-800 font-medium hover:underline transition"
-                    whileHover={{ x: 5 }} // লিঙ্কে হোভার করলে সামান্য এগিয়ে যাবে
+                    className={`inline-flex text-xl items-center font-medium ${mainTextClass} hover:underline transition`}
+                    whileHover={{ x: 5 }}
                     transition={{ type: 'spring', stiffness: 120, damping: 10 }}
                   >
                     Read More
