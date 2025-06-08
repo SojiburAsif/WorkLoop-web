@@ -1,100 +1,93 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router'; 
+import React, { useContext, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 import loginAnimation from '../assets/Animation - 1748971877426.json';
 import { AuthContext } from '../Contexts/AuthContext';
+import { ThemeContext } from '../Them/ThemProvider';
 
 const Login = () => {
     const { loginUser, googleSingIn } = useContext(AuthContext);
+    const { theme } = useContext(ThemeContext);
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [theme]);
 
+    const containerClass = theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black';
+    const inputBg = theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-white text-black';
+    const logoSrc = theme === 'dark'
+        ? '/dark.png'
+        : '/ChatGPT Image Jun 8, 2025, 01_10_41 PM.png';
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-
         if (!rememberMe) {
-            Swal.fire({
+            return Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Oops…',
                 text: 'You must check "Remember me" to continue.',
             });
-            return;
         }
-
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        console.log('Form Submitted:', { email, password });
-
-        loginUser(email, password)
-            .then((res) => {
-                console.log(res);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Successful',
-                    text: `Welcome back, ${email}!`,
-                    
-                });
-                   navigate('/');
+        const { email, password } = e.target;
+        loginUser(email.value, password.value)
+            .then(() => {
+                Swal.fire('Login Successful', `Welcome back, ${email.value}!`, 'success');
                 setError('');
+                navigate('/');
             })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Login Failed',
-                    text: error.message || 'Something went wrong during login.',
-                });
-                setError(error.message || 'Login failed.');
+            .catch(err => {
+                Swal.fire('Login Failed', err.message, 'error');
+                setError(err.message);
             });
     };
 
-
-
     const handleGoogleSignIn = () => {
-        console.log('Google Sign-In initiated');
         googleSingIn()
             .then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Signed in successfully!',
-                    text: 'Welcome to the app.',
-                    confirmButtonColor: '#3085d6'
-                });
+                Swal.fire('Signed in successfully!', 'Welcome to the app.', 'success');
                 navigate('/');
             })
             .catch(() => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Google sign-in failed!',
-                    confirmButtonColor: '#d33'
-                });
+                Swal.fire('Oops…', 'Google sign-in failed!', 'error');
             });
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center space-grotesk  bg-white">
-            <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white">
+        <div className={`min-h-screen flex items-center justify-center relative overflow-hidden ${containerClass}`}>
+            {/* CSS Shape - a translucent circle at top-right */}
+            <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full bg-blue-300 opacity-20 dark:bg-blue-700"></div>
+
+            <div className="w-full max-w-4xl flex flex-col md:flex-row z-10">
                 {/* Left Animation */}
                 <div className="md:w-1/2 flex items-center justify-center p-8">
-                    <Lottie animationData={loginAnimation} loop={true} className="w-80 h-80" />
+                    <div className="w-80 h-80 rounded-xl overflow-hidden bg-white dark:bg-neutral-900">
+                        <Lottie animationData={loginAnimation} loop />
+                    </div>
                 </div>
 
                 {/* Right Form */}
                 <div className="md:w-1/2 p-8 flex flex-col justify-center">
                     <div className="text-center mb-6">
-                        <Link to="/">
-                            <img src="/e9322ee7-eb8b-4e67-8f61-37f0067e70a1.png" alt="logo" className="mx-auto h-16 w-auto" />
+                        <Link to="/" className="inline-block">
+                            <img
+                                className="w-48 h-auto object-contain"
+                                src={logoSrc}
+                                alt={`Service Hub ${theme === 'dark' ? 'Dark' : 'Light'} Logo`}
+                            />
                         </Link>
                         <h2 className="mt-4 text-3xl font-semibold">Sign In to Your Account</h2>
                     </div>
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        {/* Email */}
                         <div>
                             <label htmlFor="email" className="block text-base font-medium">Email address</label>
                             <input
@@ -103,10 +96,11 @@ const Login = () => {
                                 type="email"
                                 required
                                 placeholder="Enter your email"
-                                className="mt-2 block w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                className={`mt-2 block w-full px-6 py-3 border rounded-md focus:outline-none focus:border-blue-500 ${inputBg}`}
                             />
                         </div>
 
+                        {/* Password */}
                         <div>
                             <label htmlFor="password" className="block text-base font-medium">Password</label>
                             <input
@@ -115,57 +109,65 @@ const Login = () => {
                                 type="password"
                                 required
                                 placeholder="Enter your password"
-                                className="mt-2 block w-full px-6 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                className={`mt-2 block w-full px-6 py-3 border rounded-md focus:outline-none focus:border-blue-500 ${inputBg}`}
                             />
                         </div>
 
-                        {/* Remember Me + Forgot */}
+                        {/* Remember + Forgot */}
                         <div className="flex items-center justify-between">
                             <label className="flex items-center space-x-2">
                                 <input
                                     type="checkbox"
                                     className="h-5 w-5 rounded border-gray-300"
                                     checked={rememberMe}
-                                    onChange={(e) => setRememberMe(e.target.checked)}
+                                    onChange={e => setRememberMe(e.target.checked)}
                                 />
                                 <span className="text-sm">Remember me</span>
                             </label>
                             <a href="#" className="text-sm text-blue-500 hover:underline">Forgot password?</a>
                         </div>
 
-                        {/* Error Message */}
                         {error && <p className="text-red-600 text-sm">{error}</p>}
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full flex justify-center text-lg bg-slate-900 font-medium text-white hover:rounded-full rounded-lg mx-2 px-7 py-3 transition hover:bg-slate-950"
+                            className="w-full flex justify-center text-lg bg-slate-900 text-white rounded-lg px-7 py-3 transition hover:rounded-full hover:bg-slate-950"
                         >
                             Sign In
                         </button>
                     </form>
 
-                    {/* Google Sign In */}
+                    {/* Google Sign-In */}
                     <div className="mt-8">
                         <p className="text-center text-sm text-gray-500">Or continue with</p>
                         <button
-                            type="button"
                             onClick={handleGoogleSignIn}
-                            className="mt-4 ml-2 w-full flex items-center justify-center px-6 py-3 border border-gray-300 rounded-md bg-white text-sm font-medium hover:bg-gray-50 transition"
+                            className="mt-4 w-full flex items-center justify-center px-6 py-3 border rounded-md bg-white text-sm font-medium text-black"
                         >
-                            <svg className="h-6 w-6 mr-2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="#EA4335" d="M24 9.5c3.35 0 6.08 1.15 8.33 3.4l6.25-6.25C34.18 3.05 29.43 1 24 1 14.62 1 6.86 6.93 3.37 15.85l7.44 5.77C12.28 16.27 17.68 9.5 24 9.5z" />
-                                <path fill="#4285F4" d="M46.5 24c0-1.6-.15-3.13-.43-4.62H24v8.75h12.73c-.55 2.92-2.18 5.4-4.65 7.07l7.13 5.53C42.63 37.34 46.5 31.24 46.5 24z" />
-                                <path fill="#FBBC05" d="M10.81 28.13A14.59 14.59 0 0110 24c0-1.13.2-2.22.56-3.25L3.12 14.98A23.997 23.997 0 001 24c0 3.88.93 7.55 2.56 10.86l7.25-6.73z" />
-                                <path fill="#34A853" d="M24 46c5.43 0 10.18-1.8 14.01-4.86l-7.13-5.53A14.43 14.43 0 0124 36c-6.32 0-11.72-6.77-13.19-15.63l-7.44 5.77C6.86 41.07 14.62 47 24 47z" />
+                            {/* Google SVG icon - keep original colors */}
+                            <svg
+                                className="h-6 w-6 mr-2"
+                                viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                            >
+                                {/* The original Google multi-color logo paths */}
+                                <path fill="#4285F4" d="M24 9.5c3.54 0 6.31 1.52 7.76 2.8l5.68-5.68C32.27 4.63 28.36 3 24 3 14.73 3 7.13 9.4 4.93 17.72l6.58 5.12C12.85 16.5 17.84 9.5 24 9.5z" />
+                                <path fill="#34A853" d="M46.5 24c0-1.6-.15-2.9-.43-4.18H24v7.91h12.64c-.54 3.02-2.3 5.59-4.9 7.27l7.51 5.81c4.36-4.03 6.75-9.92 6.75-16.81z" />
+                                <path fill="#FBBC05" d="M11.5 28.84c-.41-1.25-.64-2.58-.64-3.96 0-1.38.23-2.7.64-3.95L4.93 17.72C3.53 20.34 2.73 23.1 2.73 26c0 2.9.8 5.66 2.2 8.28l6.57-5.12z" />
+                                <path fill="#EA4335" d="M24 46.5c6.15 0 11.33-2.04 15.12-5.54l-7.51-5.81c-2.05 1.38-4.7 2.2-7.61 2.2-6.17 0-11.36-4.16-13.23-9.76l-6.58 5.12C7.05 42.1 14.72 46.5 24 46.5z" />
+                                <path fill="none" d="M0 0h48v48H0z" />
                             </svg>
                             Sign in with Google
                         </button>
                     </div>
 
+
                     <p className="mt-8 text-center text-gray-500">
                         Not a member yet?{' '}
-                        <Link to="/register" className="text-blue-600 hover:underline">Create an account</Link>
+                        <Link to="/register" className="text-blue-600 hover:underline">
+                            Create an account
+                        </Link>
                     </p>
                 </div>
             </div>

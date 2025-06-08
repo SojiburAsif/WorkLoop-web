@@ -1,12 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import loginAnimation from '../assets/Animation - 1749106191160.json';
 import { AuthContext } from '../Contexts/AuthContext';
+import { ThemeContext } from '../Them/ThemProvider';
 import Lottie from 'lottie-react';
 import axios from 'axios';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
+    const { theme } = useContext(ThemeContext);
+
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [theme]);
+
+    const containerClass = theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black';
+    const inputBg = theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black';
+    const readOnlyBg = theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-neutral-100 text-black';
+    const hoverBg = theme === 'dark' ? 'hover:bg-neutral-800' : 'hover:bg-neutral-200';
 
     const handleAddService = (e) => {
         e.preventDefault();
@@ -52,156 +67,107 @@ const AddService = () => {
     };
 
     return (
-        <section className="relative min-h-screen space-grotesk flex items-center justify-center px-8 py-12">
+        <section className={`relative min-h-screen flex items-center justify-center px-8 py-12 ${containerClass}`}>
             <div className="w-full max-w-screen-xl flex flex-col md:flex-row items-start gap-20">
                 {/* Animation */}
                 <div className="w-full md:w-2/5 flex flex-col items-start justify-start relative -ml-24">
                     <Lottie
                         animationData={loginAnimation}
-                        loop={true}
+                        loop
                         className="w-[520px] h-[620px]"
                     />
                 </div>
 
                 {/* Form */}
-                <form
-                    onSubmit={handleAddService}
-                    className="w-full md:w-3/5 space-y-8 cursor-default text-[18px]"
-                >
+                <form onSubmit={handleAddService} className="w-full md:w-3/5 space-y-8 cursor-default text-[18px]">
                     <div className="text-center">
-                        <h2 className="text-4xl font-extrabold text-black">Add Service Details</h2>
-                        <p className="text-gray-600 mt-3 text-base">
-                            Fill the form below to publish your service to the platform.
-                        </p>
+                        <h2 className="text-4xl font-extrabold">Add Service Details</h2>
+                        <p className="mt-3 text-base">Fill the form below to publish your service to the platform.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-
-                        {/* Title */}
-                        <fieldset className="flex flex-col sm:col-span-2">
-                            <label htmlFor="title" className="mb-3 text-black font-semibold">Service Title</label>
-                            <input
-                                id="title"
-                                type="text"
-                                name="title"
-                                required
-                                placeholder="e.g. Professional AC Repair at Home"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
-                            />
-                        </fieldset>
-
-                        {/* Image URL */}
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="serviceImageUrl" className="mb-3 text-black font-semibold">Image URL</label>
-                            <input
-                                id="serviceImageUrl"
-                                type="url"
-                                name="serviceImageUrl"
-                                required
-                                placeholder="https://example.com/image.jpg"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
-                            />
-                        </fieldset>
-
-                        {/* Service Name */}
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="serviceName" className="mb-3 text-black font-semibold">Service Name</label>
-                            <input
-                                id="serviceName"
-                                type="text"
-                                name="serviceName"
-                                required
-                                placeholder="Enter Service Name"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
-                            />
-                        </fieldset>
-
-                        {/* Price Range */}
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="price" className="mb-3 text-black font-semibold">Price Range</label>
-                            <input
-                                id="price"
-                                type="text"
-                                name="price"
-                                required
-                                placeholder="e.g. 1000 - 3000"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
-                            />
-                        </fieldset>
-
-                        {/* Currency */}
-                        <fieldset className="flex flex-col">
-                            <label htmlFor="currency" className="mb-3 text-black font-semibold">Currency</label>
-                            <select
-                                id="currency"
-                                name="currency"
-                                required
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-white text-lg"
-                            >
-                                <option value="">Select Currency</option>
-                                <option value="USD">USD (US Dollar)</option>
-                                <option value="BDT">BDT (Bangladeshi Taka)</option>
-                                <option value="EUR">EUR (Euro)</option>
-                                <option value="GBP">GBP (British Pound)</option>
-                                <option value="INR">INR (Indian Rupee)</option>
-                                <option value="CAD">CAD (Canadian Dollar)</option>
-                                <option value="AUD">AUD (Australian Dollar)</option>
-                            </select>
-                        </fieldset>
-
-                        {/* Service Area */}
-                        <fieldset className="flex flex-col sm:col-span-2">
-                            <label htmlFor="serviceArea" className="mb-3 text-black font-semibold">Service Area</label>
-                            <input
-                                id="serviceArea"
-                                type="text"
-                                name="serviceArea"
-                                required
-                                placeholder="e.g. Dhaka, Chittagong, Sylhet"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg"
-                            />
-                        </fieldset>
-
-                        {/* Description */}
-                        <fieldset className="flex flex-col sm:col-span-2">
-                            <label htmlFor="description" className="mb-3 text-black font-semibold">Description</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                rows="5"
-                                required
-                                placeholder="Describe your service"
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black text-lg resize-none"
-                            ></textarea>
-                        </fieldset>
+                        {[ 
+                            { id: "title", label: "Service Title", type: "text", placeholder: "e.g. Professional AC Repair at Home", span: true },
+                            { id: "serviceImageUrl", label: "Image URL", type: "url", placeholder: "https://example.com/image.jpg" },
+                            { id: "serviceName", label: "Service Name", type: "text", placeholder: "Enter Service Name" },
+                            { id: "price", label: "Price Range", type: "text", placeholder: "e.g. 1000 - 3000" },
+                            {
+                                id: "currency", label: "Currency", type: "select",
+                                options: [
+                                    "Select Currency",
+                                    "USD (US Dollar)",
+                                    "BDT (Bangladeshi Taka)",
+                                    "EUR (Euro)",
+                                    "GBP (British Pound)",
+                                    "INR (Indian Rupee)",
+                                    "CAD (Canadian Dollar)",
+                                    "AUD (Australian Dollar)"
+                                ]
+                            },
+                            { id: "serviceArea", label: "Service Area", type: "text", placeholder: "e.g. Dhaka, Chittagong, Sylhet", span: true },
+                            { id: "description", label: "Description", type: "textarea", placeholder: "Describe your service", span: true }
+                        ].map(({ id, label, type, placeholder, options, span }) => (
+                            <fieldset key={id} className={`flex flex-col${span ? ' sm:col-span-2' : ''}`}>
+                                <label htmlFor={id} className="mb-3 font-semibold">{label}</label>
+                                {type === "select" ? (
+                                    <select
+                                        id={id}
+                                        name={id}
+                                        required
+                                        className={`w-full px-5 py-4 border rounded-lg text-lg ${inputBg} border-gray-300 dark:border-gray-600`}
+                                    >
+                                        {options.map(option => (
+                                            <option key={option.split(' ')[0]} value={option.split(' ')[0]}>{option}</option>
+                                        ))}
+                                    </select>
+                                ) : type === "textarea" ? (
+                                    <textarea
+                                        id={id}
+                                        name={id}
+                                        rows="5"
+                                        required
+                                        placeholder={placeholder}
+                                        className={`w-full px-5 py-4 border rounded-lg text-lg ${inputBg} border-gray-300 dark:border-gray-600 resize-none`}
+                                    ></textarea>
+                                ) : (
+                                    <input
+                                        id={id}
+                                        name={id}
+                                        type={type}
+                                        required
+                                        placeholder={placeholder}
+                                        className={`w-full px-5 py-4 border rounded-lg text-lg ${inputBg} border-gray-300 dark:border-gray-600`}
+                                    />
+                                )}
+                            </fieldset>
+                        ))}
 
                         {/* Provider Name */}
                         <fieldset className="flex flex-col">
-                            <label className="mb-3 text-black font-semibold">Provider Name</label>
+                            <label className="mb-3 font-semibold">Provider Name</label>
                             <input
                                 type="text"
                                 value={user?.displayName || ''}
                                 readOnly
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed text-lg"
+                                className={`w-full px-5 py-4 border rounded-lg text-lg ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
                             />
                         </fieldset>
 
                         {/* Provider Email */}
                         <fieldset className="flex flex-col">
-                            <label className="mb-3 text-black font-semibold">Provider Email</label>
+                            <label className="mb-3 font-semibold">Provider Email</label>
                             <input
                                 type="email"
                                 value={user?.email || ''}
                                 readOnly
-                                className="w-full px-5 py-4 border border-gray-300 rounded-lg text-black bg-gray-100 cursor-not-allowed text-lg"
+                                className={`w-full px-5 py-4 border rounded-lg text-lg ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
                             />
                         </fieldset>
                     </div>
 
-                    {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full py-5 bg-purple-800 text-white font-bold rounded-lg transition hover:bg-purple-600 text-lg"
+                        className={`w-full py-5 bg-black text-white font-bold rounded-lg transition ${hoverBg} text-lg`}
                     >
                         Add Service
                     </button>

@@ -10,6 +10,7 @@ import Home from "../Home/Home";
 import AddTask from "../Form/DataAdd";
 import SinglePage from "../Page/SinglePage";
 import PrivateRouter from "../Contexts/PrivateRouter";
+import Services from "../Page/Services";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
                 <SinglePage></SinglePage>
             </PrivateRouter>,
             loader: ({params})=> fetch(`http://localhost:3000/working/${params.id}`)
+        },
+        {
+            path: '/services',
+            element: <Services></Services>
         }
 
         ]
