@@ -15,6 +15,7 @@ import BookingForm from "../Page/Booking";
 import Manage from "../Page/Manage";
 import EditServices from "../EditServices/EditServices";
 import MyBooking from "../Page/MyBooking";
+import ToDo from "../Page/ToDo";
 
 
 export const router = createBrowserRouter([
@@ -62,8 +63,12 @@ export const router = createBrowserRouter([
             element: <PrivateRouter>
                 <MyBooking></MyBooking>
             </PrivateRouter>,
-            
-
+        },
+        {
+            path: '/service-to-do',
+            element: <PrivateRouter>
+                <ToDo></ToDo>
+            </PrivateRouter>
         }
 
         ]

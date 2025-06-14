@@ -43,7 +43,7 @@ const Booking = () => {
             .then(res => {
                 console.log(res);
                 Swal.fire('Booked!', 'Your service has been booked.', 'success');
-                navagit('/services')
+                navagit('/')
             })
             .catch(err => {
                 console.error(err);

@@ -10,12 +10,15 @@ import { myApplitionPromise } from '../API/Application';
 const Manage = () => {
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(AuthContext);
+
     const [jobs, setJobs] = useState([]);
 
-    useEffect(() => {
+     useEffect(() => {
         if (user?.email) {
-            myApplitionPromise(user.email)
-                .then(data => setJobs(data))
+           myApplitionPromise(user.email)
+                .then(data => {
+                    setJobs(data); // Filtering is unnecessary since API already returns filtered data
+                })
                 .catch(err => console.error('Failed to fetch bookings:', err));
         } else {
             setJobs([]);
@@ -84,6 +87,7 @@ const Manage = () => {
                             return (
                                 <div key={_id} className={`rounded-lg overflow-hidden shadow-lg ${cardBg} ${cardText}`}>
                                     <img src={image} alt={title} className="w-full h-52 object-cover" />
+
                                     <div className="p-5">
                                         <h2 className="text-2xl font-bold mb-2">{title}</h2>
                                         <p className="line-clamp-3 mb-3">{description}</p>

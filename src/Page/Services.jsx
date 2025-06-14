@@ -28,7 +28,7 @@ const Services = () => {
 
     return (
         <div className={`${bgClass} min-h-screen transition-colors duration-300`}>
-            <section className={`${textClass} py-12 px-4 md:px-8 w-[78%] mx-auto transition-colors duration-300`}>
+            <section className={`${textClass} py-12 px-4 md:px-8 w-[94%] mx-auto transition-colors duration-300`}>
 
                 {/* Search Form */}
                 <div className="flex justify-end mb-8">
