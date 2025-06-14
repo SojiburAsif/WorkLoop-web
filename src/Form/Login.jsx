@@ -39,9 +39,10 @@ const Login = () => {
         const { email, password } = e.target;
         loginUser(email.value, password.value)
             .then(() => {
-                Swal.fire('Login Successful', `Welcome back, ${email.value}!`, 'success');
+
                 setError('');
                 navigate('/');
+                Swal.fire('Login Successful', `Welcome back, ${email.value}!`, 'success');
             })
             .catch(err => {
                 Swal.fire('Login Failed', err.message, 'error');

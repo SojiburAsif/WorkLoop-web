@@ -85,7 +85,8 @@ const ServiceFeatures = () => {
   });
 
   return (
-    <section className={`${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'} py-12 mt-12`}>
+    <div className=" mb-13 mx-7 ">
+    <section className={`${theme === 'dark' ?  'bg-black text-white rounded-2xl' : 'bg-white text-black'} py-12 mt-12`}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           className="text-3xl font-bold text-center mb-10"
@@ -126,6 +127,7 @@ const ServiceFeatures = () => {
         </motion.div>
       </div>
     </section>
+    </div>
   );
 };
 

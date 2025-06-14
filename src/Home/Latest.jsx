@@ -27,6 +27,13 @@ const cardsData = [
     btnHref: '/services/cleaning',
     date: 'June 3, 2025',
   },
+  {
+    image: 'https://i.ibb.co/cS0w446J/home-2486092.jpg',
+    category: 'Home Cleaning',
+    title: 'Deep Cleaning for Homes, Kitchens & Bathrooms',
+    btnHref: '/services/cleaning',
+    date: 'June 3, 2025',
+  }
 ];
 
 const containerVariants = {
@@ -50,20 +57,19 @@ const cardVariants = {
 const CardsPage = () => {
   const { theme } = useContext(ThemeContext);
 
-  // থিম অনুযায়ী ব্যাকগ্রাউন্ড ও টেক্সট কালার ক্লাস
   const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-white';
-  // এখানে মূল টেক্সটের জন্য কালার
+ 
   const mainTextClass = theme === 'dark' ? 'text-white' : 'text-black';
-  // সাবটেক্সট ও মিউটেড টেক্সটের জন্য
+
   const subTextClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
-  // বেজ বা ক্যাটাগরি ব্যাজের জন্য
-  const badgeClass = theme === 'dark' 
-    ? 'badge badge-outline badge-info border-gray-500 text-gray-300' 
+ 
+  const badgeClass = theme === 'dark'
+    ? 'badge badge-outline badge-info border-gray-500 text-gray-300'
     : 'badge badge-outline badge-info border-blue-500 text-blue-600';
 
   return (
     <main className={`${theme === 'dark' ? ' text-white' : 'bg-white  text-black'} py-12 mt-14 space-grotesk`}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[80%] mx-auto px-6">
         {/* Header */}
         <motion.div
           className="text-center mb-12"
@@ -81,7 +87,7 @@ const CardsPage = () => {
 
         {/* Cards Container */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -93,8 +99,8 @@ const CardsPage = () => {
               variants={cardVariants}
               whileHover={{
                 scale: 1.03,
-                boxShadow: theme === 'dark' 
-                  ? '0px 10px 20px rgba(255,255,255,0.12)' 
+                boxShadow: theme === 'dark'
+                  ? '0px 10px 20px rgba(255,255,255,0.12)'
                   : '0px 10px 20px rgba(0,0,0,0.12)',
               }}
             >

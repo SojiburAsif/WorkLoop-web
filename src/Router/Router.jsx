@@ -11,6 +11,11 @@ import AddTask from "../Form/DataAdd";
 import SinglePage from "../Page/SinglePage";
 import PrivateRouter from "../Contexts/PrivateRouter";
 import Services from "../Page/Services";
+import BookingForm from "../Page/Booking";
+import Manage from "../Page/Manage";
+import EditServices from "../EditServices/EditServices";
+import MyBooking from "../Page/MyBooking";
+
 
 export const router = createBrowserRouter([
     {
@@ -30,11 +35,35 @@ export const router = createBrowserRouter([
             element: <PrivateRouter>
                 <SinglePage></SinglePage>
             </PrivateRouter>,
-            loader: ({params})=> fetch(`http://localhost:3000/working/${params.id}`)
+            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
         },
         {
             path: '/services',
             element: <Services></Services>
+        },
+        {
+            path: 'booking/:id',
+            element: <PrivateRouter><BookingForm></BookingForm></PrivateRouter>,
+            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
+        },
+        {
+            path: '/manage-service',
+            element: <PrivateRouter>
+                <Manage></Manage>
+            </PrivateRouter>
+        },
+        {
+            path: '/EditServices/:id',
+            Component: EditServices,   // JSX নয়, সরাসরি কম্পোনেন্ট রেফারেন্স
+            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
+        },
+        {
+            path: '/booked-services',
+            element: <PrivateRouter>
+                <MyBooking></MyBooking>
+            </PrivateRouter>,
+            
+
         }
 
         ]

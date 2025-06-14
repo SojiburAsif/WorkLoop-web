@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Contexts/AuthContext';
 import { ThemeContext } from '../Them/ThemProvider';
+import { FaReact, FaSearch } from 'react-icons/fa';
 
 const Header = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
@@ -26,11 +27,13 @@ const Header = () => {
     const hoverBg =
         theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200';
 
+// const hero =(handelSearch)
+
     return (
-        <div className={`shadow-sm ${containerClass}`}>
+        <div className={`shadow-sm ${containerClass}`}>            
             <div className="navbar min-h-[80px] px-4">
-                <div className="navbar-start">
-                    {/* Mobile dropdown */}
+                <div className="navbar-start flex items-center">
+               
                     <div className="dropdown lg:hidden">
                         <div
                             tabIndex={0}
@@ -74,25 +77,23 @@ const Header = () => {
                         </ul>
                     </div>
 
-                    {/* Logo swap */}
                     <Link to="/">
                         {theme === 'dark' ? (
                             <img
                                 className="w-48 h-auto object-contain"
-                                src="../../public/dark.png"
+                                src="/dark.png"
                                 alt="Service Hub Dark Logo"
                             />
                         ) : (
                             <img
                                 className="w-48 h-auto object-contain"
-                                src="../../public/ChatGPT Image Jun 8, 2025, 01_10_41 PM.png"
+                                src="/ChatGPT Image Jun 8, 2025, 01_10_41 PM.png"
                                 alt="Service Hub Light Logo"
                             />
                         )}
                     </Link>
                 </div>
 
-                {/* Desktop nav */}
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-lg font-medium gap-2">
                         <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
@@ -113,8 +114,9 @@ const Header = () => {
                     </ul>
                 </div>
 
-                {/* Right side: theme toggle & auth */}
-                <div className="navbar-end gap-2">
+                <div className="navbar-end flex items-center gap-2">
+                   
+
                     <button
                         onClick={toggleTheme}
                         className={`p-2 rounded-full transition duration-300 ${hoverBg}`}
@@ -141,7 +143,6 @@ const Header = () => {
                             >
                                 Login
                             </Link>
-
 
                             <Link
                                 to="/register"
