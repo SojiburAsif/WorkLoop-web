@@ -39,7 +39,7 @@ const Booking = () => {
             currency: service.currency,
             bookedAt: new Date().toISOString()
         };
-        axios.post('http://localhost:3000/bookings', bookingData)
+        axios.post('https://backend-zeta-ochre-92.vercel.app/bookings', bookingData)
             .then(res => {
                 console.log(res);
                 Swal.fire('Booked!', 'Your service has been booked.', 'success');

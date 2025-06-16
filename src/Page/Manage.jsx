@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { Link } from 'react-router';
 import { myApplitionPromise } from '../API/Application';
+import Lottie from 'lottie-react';
+import loginAnimation from '../assets/Animation - 1749975033533.json';
 
 const Manage = () => {
     const { theme } = useContext(ThemeContext);
@@ -13,11 +15,12 @@ const Manage = () => {
 
     const [jobs, setJobs] = useState([]);
 
-     useEffect(() => {
+    useEffect(() => {
         if (user?.email) {
-           myApplitionPromise(user.email)
+
+            myApplitionPromise(user.email, user.accessToken)
                 .then(data => {
-                    setJobs(data); // Filtering is unnecessary since API already returns filtered data
+                    setJobs(data);
                 })
                 .catch(err => console.error('Failed to fetch bookings:', err));
         } else {
@@ -36,7 +39,7 @@ const Manage = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3000/working/${id}`)
+                axios.delete(`https://backend-zeta-ochre-92.vercel.app/working/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0 || res.data.success) {
                             Swal.fire({
@@ -72,9 +75,14 @@ const Manage = () => {
                 </p>
 
                 {jobs.length === 0 ? (
-                    <p className={`text-center mt-10 text-xl ${textClass}`}>
-                        You have not added any services yet.
-                    </p>
+                    <div className="flex flex-col items-center justify-center space-y-4 w-full h-[400px] md:h-[600px]">
+                        <Lottie
+                            animationData={loginAnimation}
+                            loop={true}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                        <p className="text-lg text-blue-400">No bookings found for your account.</p>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {jobs.map((job) => {

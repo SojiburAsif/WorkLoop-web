@@ -9,21 +9,21 @@ const slides = [
         heading: "Share Your Services Effortlessly",
         subtext:
             "Add, update, and manage your own services with ease. Unlock the full potential of your skills and connect with those who need them.",
-        bgImage: "https://i.ibb.co/1Y73B3dY/work-8049516.jpg",
+        bgImage: "https://i.ibb.co/dsMWyRKB/service-1013724.jpg",
     },
     {
         id: 2,
         heading: "Explore Services from Others",
         subtext:
             "Browse and discover services shared by our community. Whether you need help with design, coding, or tutoring, find the perfect match here.",
-        bgImage: "https://i.ibb.co/Jjfw8x5x/receptionists-5975962.jpg",
+        bgImage: "https://i.ibb.co/6RBbJPFY/delivery-6970072.png",
     },
     {
         id: 3,
         heading: "Book & Track Service Status",
         subtext:
             "Book services instantly and keep track of your booking status in real time. Stay informed every step of the way—from request to completion.",
-        bgImage: "https://i.ibb.co/Lh848m0D/laptop-7978588.jpg",
+        bgImage: "https://i.ibb.co/Jjfw8x5x/receptionists-5975962.jpg",
     },
 ];
 
@@ -46,10 +46,6 @@ const BannerSlider = () => {
         setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     const goToSlide = (index) => setCurrentIndex(index);
 
-    // ================================
-    // Typewriter-style Variants
-    // ================================
-    // প্রতিটি ক্যারেক্টারের জন্য অ্যানিমেশন সেটআপ
     const letterVariant = {
         hidden: { opacity: 0, y: 20 },
         visible: (i) => ({
@@ -58,24 +54,22 @@ const BannerSlider = () => {
             transition: {
                 duration: 0.2,
                 ease: "easeOut",
-                delay: i * 0.05, // ক্যারেক্টারের ইনডেক্স অনুযায়ী দেরি
+                delay: i * 0.05,
             },
         }),
     };
 
-    // হেডিং এর পুরো কন্টেইনার যা স্ট্যাগার করে চাইল্ডগুলো চালাবে
     const headingContainer = {
         hidden: {},
         visible: {
             transition: {
-                staggerChildren: 0.05, // প্রতিটি চাইল্ডের মধ্যে 0.05s পিছিয়ে শুরু
+                staggerChildren: 0.05,
             },
         },
     };
 
     return (
         <div className="relative w-full h-full overflow-hidden rounded-3xl">
-            {/* Slides Container */}
             <div
                 className="flex transition-transform duration-700 ease-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -86,10 +80,8 @@ const BannerSlider = () => {
                         className="relative flex-shrink-0 w-full h-full flex items-center justify-start px-8 bg-cover bg-center"
                         style={{ backgroundImage: `url(${slide.bgImage})` }}
                     >
-                        {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900/50 to-transparent rounded-3xl" />
 
-                        {/* Content Card */}
                         <div className="relative z-10 ml-4 md:ml-10 p-4 md:p-8 max-w-xl md:max-w-3xl text-left">
                             <AnimatePresence exitBeforeEnter>
                                 {currentIndex === slide.id - 1 && (
@@ -100,9 +92,9 @@ const BannerSlider = () => {
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        {/* ===== Typewriter-Style Heading ===== */}
+                                        {/* Blue Colored Typewriter Heading */}
                                         <motion.div
-                                            className="flex flex-wrap text-white font-bold mb-4"
+                                            className="flex flex-wrap text-blue-400 font-semibold mb-4"
                                             variants={headingContainer}
                                             initial="hidden"
                                             animate="visible"
@@ -119,14 +111,10 @@ const BannerSlider = () => {
                                             ))}
                                         </motion.div>
 
-                                        {/* ===== Subtext (Fade-In Slowly) ===== */}
-
                                         <p className="text-white mb-6 text-base sm:text-sm md:text-lg">
                                             {slide.subtext}
                                         </p>
 
-
-                                        {/* ===== Buttons (No Motion) ===== */}
                                         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                                             <button className="px-6 py-3 sm:px-8 sm:py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-black transition text-sm sm:text-base min-w-[130px]">
                                                 Get It Now
@@ -143,7 +131,6 @@ const BannerSlider = () => {
                 ))}
             </div>
 
-            {/* Prev Arrow */}
             <button
                 onClick={prevSlide}
                 aria-label="Previous Slide"
@@ -159,7 +146,6 @@ const BannerSlider = () => {
                 </svg>
             </button>
 
-            {/* Next Arrow */}
             <button
                 onClick={nextSlide}
                 aria-label="Next Slide"
@@ -175,7 +161,6 @@ const BannerSlider = () => {
                 </svg>
             </button>
 
-            {/* Dots Navigation */}
             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
                 {slides.map((_, idx) => (
                     <button

@@ -54,7 +54,7 @@ const AddService = () => {
 
         console.log("Final Data To Send:", serviceData);
 
-        axios.post('http://localhost:3000/working', serviceData)
+        axios.post('https://backend-zeta-ochre-92.vercel.app/working', serviceData)
             .then(res => {
                 console.log(res);
                 form.reset();
@@ -97,11 +97,7 @@ const AddService = () => {
                                     "Select Currency",
                                     "USD (US Dollar)",
                                     "BDT (Bangladeshi Taka)",
-                                    "EUR (Euro)",
-                                    "GBP (British Pound)",
-                                    "INR (Indian Rupee)",
-                                    "CAD (Canadian Dollar)",
-                                    "AUD (Australian Dollar)"
+                                  
                                 ]
                             },
                             { id: "serviceArea", label: "Service Area", type: "text", placeholder: "Service Area", span: true },
@@ -167,7 +163,7 @@ const AddService = () => {
 
                     <button
                         type="submit"
-                        className={`w-full py-5 bg-black text-white font-bold rounded-lg transition ${hoverBg} text-lg`}
+                        className={`w-full py-7 btn   font-bold rounded-lg transition ${hoverBg} text-lg`}
                     >
                         Add Service
                     </button>

@@ -29,14 +29,16 @@ export const router = createBrowserRouter([
         },
         {
             path: 'addtask',
-            Component: AddTask
+            element: <PrivateRouter>
+                <AddTask></AddTask>
+            </PrivateRouter>
         },
         {
             path: '/working/:id',
             element: <PrivateRouter>
                 <SinglePage></SinglePage>
             </PrivateRouter>,
-            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
+            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
         },
         {
             path: '/services',
@@ -45,7 +47,7 @@ export const router = createBrowserRouter([
         {
             path: 'booking/:id',
             element: <PrivateRouter><BookingForm></BookingForm></PrivateRouter>,
-            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
+            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
         },
         {
             path: '/manage-service',
@@ -55,8 +57,10 @@ export const router = createBrowserRouter([
         },
         {
             path: '/EditServices/:id',
-            Component: EditServices,   // JSX নয়, সরাসরি কম্পোনেন্ট রেফারেন্স
-            loader: ({ params }) => fetch(`http://localhost:3000/working/${params.id}`)
+            element: <PrivateRouter>
+                <EditServices></EditServices>
+            </PrivateRouter>,
+            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
         },
         {
             path: '/booked-services',

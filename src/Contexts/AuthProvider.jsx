@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { auth } from '../Firebase/firebase.init';
 import { GoogleAuthProvider } from 'firebase/auth';
 import Loading from '../Loding/Loding';
+import axios from 'axios';
 
 const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(null);
@@ -36,6 +37,20 @@ const AuthProvider = ({ children }) => {
             setuser(currentuser)
             // SiAwselasticloadbalancing(false)
             setLoading(false)
+
+            if (currentuser?.email) {
+                const userData = { email: currentuser.email }
+                axios.post('https://backend-zeta-ochre-92.vercel.app/jwt', userData,{
+                    withCredentials: true
+                })
+                    .then(res => {
+                        // const token = res.data.token
+                        // localStorage.setItem('token', token);
+                        console.log('Token saved re' , res.data);
+                    })
+                    .catch(err => console.log(err));
+            }
+
         });
         return () => {
             unsubscribr();

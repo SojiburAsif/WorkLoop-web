@@ -27,13 +27,13 @@ const Header = () => {
     const hoverBg =
         theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200';
 
-// const hero =(handelSearch)
+    // const hero =(handelSearch)
 
     return (
-        <div className={`shadow-sm ${containerClass}`}>            
+        <div className={`shadow-sm ${containerClass}`}>
             <div className="navbar min-h-[80px] px-4">
                 <div className="navbar-start flex items-center">
-               
+
                     <div className="dropdown lg:hidden">
                         <div
                             tabIndex={0}
@@ -115,7 +115,7 @@ const Header = () => {
                 </div>
 
                 <div className="navbar-end flex items-center gap-2">
-                   
+
 
                     <button
                         onClick={toggleTheme}
@@ -139,7 +139,7 @@ const Header = () => {
                         <>
                             <Link
                                 to="/login"
-                                className="text-lg font-medium mx-2 text-white hover:text-white dark:text-black dark:hover:text-black hover:underline"
+                                className="font-semibold hover:underline hover:text-blue-500"
                             >
                                 Login
                             </Link>

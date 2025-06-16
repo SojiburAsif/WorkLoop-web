@@ -6,6 +6,7 @@ import {
     FaInstagram,
     FaLinkedinIn,
 } from 'react-icons/fa';
+import { NavLink } from 'react-router';
 import { ThemeContext } from '../Them/ThemProvider';
 
 const Footer = () => {
@@ -16,9 +17,11 @@ const Footer = () => {
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
     const subBgClass = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100';
     const linkHoverDark = theme === 'dark' ? 'hover:text-blue-400' : '';
+    const navLinkClass = ({ isActive }) =>
+        `block text-lg ${isActive ? 'text-blue-500 underline' : textClass} hover:underline`;
 
     return (
-        <footer className={`${bgClass} space-grotesk ${textClass}`}>
+        <footer className={`${bgClass} space-grotesk ${textClass}`}>            
             <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {/* Logo & Contact */}
                 <div className="space-y-5">
@@ -66,31 +69,57 @@ const Footer = () => {
 
                 {/* Pages */}
                 <div>
-                    <h6 className="text-2xl font-semibold mb-4">Pages</h6>
-                    <ul className="space-y-3 text-lg">
-                        <li><a href="/" className={`hover:underline ${textClass}`}>Home</a></li>
-                        <li><a href="/about" className={`hover:underline ${textClass}`}>About Us</a></li>
-                        <li><a href="/team" className={`hover:underline ${textClass}`}>Our Team</a></li>
-                        <li><a href="/blog-classic" className={`hover:underline ${textClass}`}>Blog Classic</a></li>
-                        <li><a href="/blog-grid" className={`hover:underline ${textClass}`}>Blog Grid</a></li>
+                    <h6 className="text-3xl font-semibold mb-4">Pages</h6>
+                    <ul className="p-2 space-y-2">
+                        <li>
+                            <NavLink to="/addtask" className={navLinkClass}>
+                                Add Service
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/manage-service" className={navLinkClass}>
+                                Manage Service
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/booked-services" className={navLinkClass}>
+                                Booked Services
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/service-to-do" className={navLinkClass}>
+                                Service-To-Do
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
 
-                {/* Services */}
+                {/* Contact Form */}
                 <div>
-                    <h6 className="text-2xl font-semibold mb-4">Services</h6>
-                    <ul className="space-y-3 text-lg">
-                        <li><a href="/services/engine-cleaning" className={`hover:underline ${textClass}`}>Engine Cleaning</a></li>
-                        <li><a href="/services/crystal-shine" className={`hover:underline ${textClass}`}>Crystal Shine</a></li>
-                        <li><a href="/services/diagnostic-tests" className={`hover:underline ${textClass}`}>Diagnostic Tests</a></li>
-                        <li><a href="/services/interior-cleaning" className={`hover:underline ${textClass}`}>Interior Cleaning</a></li>
-                        <li><a href="/services/engine-service" className={`hover:underline ${textClass}`}>Engine Service</a></li>
-                    </ul>
+                    <h6 className="text-3xl font-semibold mb-4">Contact Us</h6>
+                    <form className="space-y-3">
+                        <input
+                            type="email"
+                            placeholder="Your Email"
+                            className="w-full px-4 py-3.5  rounded bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <textarea
+                            placeholder="Your Message"
+                            rows="4"
+                            className="w-full px-4 py-2 rounded bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        ></textarea>
+                        <button
+                            type="submit"
+                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                        >
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
 
             {/* Copyright */}
-            <div className={`${subBgClass} py-5 mt-4 text-center text-lg ${textClass}`}>
+            <div className={`${subBgClass} py-5 mt-4 text-center text-lg ${textClass}`}>                
                 <p>© 2025 Servicehub. All Rights Reserved.</p>
             </div>
         </footer>

@@ -29,6 +29,7 @@ const Login = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
+
         if (!rememberMe) {
             return Swal.fire({
                 icon: 'error',
@@ -36,19 +37,28 @@ const Login = () => {
                 text: 'You must check "Remember me" to continue.',
             });
         }
-        const { email, password } = e.target;
-        loginUser(email.value, password.value)
-            .then(() => {
 
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        loginUser(email, password)
+            .then(() => {
                 setError('');
-                navigate('/');
-                Swal.fire('Login Successful', `Welcome back, ${email.value}!`, 'success');
+
+                setRememberMe(false); 
+                Swal.fire('Login Successful', `Welcome back, ${email}!`, 'success')
+                    .then(() => {
+                        navigate('/');
+                    });
+                form.reset(); 
             })
             .catch(err => {
                 Swal.fire('Login Failed', err.message, 'error');
                 setError(err.message);
             });
     };
+
 
     const handleGoogleSignIn = () => {
         googleSingIn()
@@ -132,7 +142,7 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-full flex justify-center text-lg bg-slate-900 text-white rounded-lg px-7 py-3 transition hover:rounded-full hover:bg-slate-950"
+                            className="w-full flex justify-center text-lg bg-blue-500 text-white rounded-lg px-7 py-3 transition  hover:bg-blue-900"
                         >
                             Sign In
                         </button>

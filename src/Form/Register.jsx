@@ -222,7 +222,7 @@ const Register = () => {
                             />
                         </div>
 
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center ml-2 space-x-2">
                             <input
                                 type="checkbox"
                                 id="privacy"
@@ -233,7 +233,7 @@ const Register = () => {
                             <label
                                 htmlFor="privacy"
                                 className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                                    }`}
+                                    } `}
                             >
                                 I agree to the{' '}
                                 <Link to={'/privacy'} className="text-blue-500 hover:underline">
@@ -244,7 +244,7 @@ const Register = () => {
 
                         <button
                             type="submit"
-                            className="w-full flex justify-center text-lg bg-slate-900 font-medium text-white hover:rounded-full rounded-lg mx-2 px-7 py-3 transition hover:bg-slate-950 hover:text-white"
+                            className="w-full flex justify-center text-lg bg-blue-500 font-medium text-white rounded-lg mx-2 px-7 py-3 transition hover:bg-blue-900 hover:text-white"
                         >
                             Register
                         </button>

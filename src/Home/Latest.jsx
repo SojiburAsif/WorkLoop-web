@@ -68,7 +68,7 @@ const CardsPage = () => {
     : 'badge badge-outline badge-info border-blue-500 text-blue-600';
 
   return (
-    <main className={`${theme === 'dark' ? ' text-white' : 'bg-white  text-black'} py-12 mt-14 space-grotesk`}>
+    <main className={`${theme === 'dark' ? ' text-white' : 'bg-white  text-black'} py-12 mt-14 `}>
       <div className="max-w-[80%] mx-auto px-6">
         {/* Header */}
         <motion.div

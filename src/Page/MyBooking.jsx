@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
+import Lottie from 'lottie-react';
 import { FaInfoCircle, FaDollarSign, FaCalendarAlt, FaUserAlt, FaTag } from 'react-icons/fa';
 import { AuthContext } from '../Contexts/AuthContext';
 import { ThemeContext } from '../Them/ThemProvider';
 import { BookingByPromis } from '../API/BookingApplication';
+import loginAnimation from '../assets/Animation - 1749975033533.json';
 
 const MyBooking = () => {
     const [jobs, setJobs] = useState([]);
@@ -33,16 +35,20 @@ const MyBooking = () => {
                     <p>Please log in to view your bookings.</p>
                 </div>
             ) : jobs.length === 0 ? (
-                <div className="text-center text-lg flex flex-col items-center">
-                    <FaInfoCircle className="text-4xl mb-2 text-blue-400" />
-                    <p>No bookings found for your account.</p>
+                <div className="text-center flex flex-col items-center space-y-4 w-full h-[400px] md:h-[600px]">
+                    <Lottie
+                        animationData={loginAnimation}
+                        loop={true}
+                        style={{ width: '100%', height: '100%' }}
+                    />
+                    <p className="text-lg text-blue-400">No bookings found for your account.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto items-center gap-6">
                     {jobs.map(job => (
                         <div
                             key={job._id}
-                            className="card w-full   bg-base-100 shadow-sm border border-base-300 mx-auto"
+                            className="card w-full bg-base-100 shadow-sm border border-base-300 mx-auto"
                         >
                             <figure>
                                 <img
@@ -102,8 +108,8 @@ const MyBooking = () => {
                                     )}
                                 </div>
 
-                                {/* Provider Image and Name at Bottom
-                                {job.providerImage && (
+                                {/* Uncomment if you want provider image at bottom */}
+                                {/* {job.providerImage && (
                                     <div className="mt-4 flex items-center space-x-3">
                                         <img
                                             src={job.providerImage}

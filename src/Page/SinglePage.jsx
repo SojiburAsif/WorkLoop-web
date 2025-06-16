@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { FaArrowRight } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import { ThemeContext } from '../Them/ThemProvider';
 
 function SingleServiceDetails() {
@@ -11,22 +12,18 @@ function SingleServiceDetails() {
         _id,
         title,
         description,
-        image,
+        serviceImageUrl,
         priceRange,
         currency,
-        provider,
+        providerImage,
         serviceArea,
         providerName,
     } = service;
-
+    // console.log(service);
     const bgClass = theme === 'dark' ? 'bg-black' : 'bg-white';
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
     const subTextClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
     const borderClass = theme === 'dark' ? 'border-gray-600' : 'border-gray-200';
-    const badgeClass = theme === 'dark'
-        ? 'badge badge-outline border-white text-white'
-        : 'badge badge-outline badge-info';
-    const btnBgClass = theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'text-black hover:bg-sky-100/40';
 
     return (
         <div className={`max-w-7xl mx-auto p-10 space-grotesk rounded-4xl shadow-2xl my-6 ${bgClass}`}>
@@ -35,7 +32,7 @@ function SingleServiceDetails() {
                 {/* --- Image Section --- */}
                 <div className="w-full md:w-3/5">
                     <img
-                        src={image || "https://i.ibb.co/3KxyBQT/courier-driver-4886839.jpg"}
+                        src={serviceImageUrl}
                         alt={title}
                         className="w-full h-[40rem] object-cover rounded-2xl"
                     />
@@ -50,7 +47,7 @@ function SingleServiceDetails() {
 
                         <p className={`text-xl ${subTextClass}`}>{description}</p>
 
-                        <p className={`text-3xl font-semibold ${textClass}`}>
+                        <p className="text-3xl font-semibold text-red-500">
                             Price: {priceRange?.join(" - ")} {currency || "BDT"}
                         </p>
                     </div>
@@ -61,7 +58,7 @@ function SingleServiceDetails() {
 
                         <div className="flex items-center gap-6">
                             <img
-                                src={provider?.logo || "https://i.ibb.co/zPGQF5C/user.png"}
+                                src={providerImage}
                                 alt={providerName || "Provider"}
                                 className={`w-16 h-16 rounded-full border-2 ${borderClass}`}
                             />
@@ -75,7 +72,7 @@ function SingleServiceDetails() {
                                         serviceArea.map((area, idx) => (
                                             <span
                                                 key={idx}
-                                                className={`px-3 py-1 rounded-full text-sm font-medium ${badgeClass}`}
+                                                className="badge badge-outline badge-info"
                                             >
                                                 {area}
                                             </span>
@@ -88,14 +85,19 @@ function SingleServiceDetails() {
                         </div>
                     </div>
 
-                    {/* --- Booking Button --- */}
-                    <Link
-                        to={`/booking/${_id}`}
-                        className={`mt-6 w-[60%] px-8 py-4 border border-sky-400 text-xl font-semibold rounded-full flex items-center justify-center transition ${btnBgClass}`}
+                    {/* --- Booking Button with Loop Motion --- */}
+                    <motion.div
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
                     >
-                        Book Now
-                        <FaArrowRight className="ml-3 text-2xl" />
-                    </Link>
+                        <Link
+                            to={`/booking/${_id}`}
+                            className="mt-6 w-[60%] px-8 py-4 bg-blue-500 text-white text-xl font-semibold rounded-full flex items-center justify-center transition hover:bg-blue-600"
+                        >
+                            Book Now
+                            <FaArrowRight className="ml-3 text-2xl" />
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         </div>

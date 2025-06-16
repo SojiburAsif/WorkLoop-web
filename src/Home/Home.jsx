@@ -6,7 +6,7 @@ import Latest from './Latest';
 import HotJobs from './HotJobs';
 
 const Home = () => {
-    const jobsPromis = fetch('http://localhost:3000/working').then(res=> res.json())
+    const jobsPromis = fetch('https://backend-zeta-ochre-92.vercel.app/working').then(res=> res.json())
     return (
         <div>
             <div className="">

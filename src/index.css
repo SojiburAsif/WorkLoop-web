@@ -1,9 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-
-
-
+/* Font Utility Classes */
 .poppins-font {
     font-family: "Poppins", sans-serif;
 }
@@ -12,12 +10,16 @@
     font-family: "Roboto", sans-serif;
 }
 
-.fontawesome {
-    font-family: "Font Awesome 6 Free";
-    /* Or "Font Awesome 5 Free" depending on version */
-    font-weight: 900;
-    /* For solid icons */
-}
 .space-grotesk {
     font-family: 'Space Grotesk', sans-serif;
+}
+
+.fontawesome {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* For solid icons */
+}
+
+/* ✅ Oswald Font Class */
+.oswald-font {
+    font-family: "Oswald", sans-serif;
 }

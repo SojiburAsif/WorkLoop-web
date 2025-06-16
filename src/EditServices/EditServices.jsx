@@ -81,7 +81,7 @@ const EditServices = () => {
             providerImage: user?.photoURL || '',
         };
 
-        axios.put(`http://localhost:3000/working/${service._id}`, updatedServiceData)
+        axios.put(`https://backend-zeta-ochre-92.vercel.app/working/${service._id}`, updatedServiceData)
             .then(res => {
                 console.log(res);
                 Swal.fire("Updated!", "Service updated successfully!", "success");
@@ -97,7 +97,7 @@ const EditServices = () => {
         <section className={`relative min-h-screen flex items-center justify-center px-10 py-10 ${containerClass}`}>
             <div className="w-full max-w-screen-lg flex flex-col md:flex-row items-start gap-14">
                 {/* Animation */}
-                <div className="hidden md:block md:w-2/5 flex flex-col items-start justify-start relative -ml-16">
+                <div className=" md:block md:w-2/5 flex flex-col items-start justify-start relative -ml-16">
                     <Lottie
                         animationData={loginAnimation}
                         loop

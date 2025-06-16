@@ -12,7 +12,7 @@ const Services = () => {
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
 
     useEffect(() => {
-        fetch('http://localhost:3000/working')
+        fetch('https://backend-zeta-ochre-92.vercel.app/working')
             .then(res => res.json())
             .then(data => {
                 setJobs(data);
@@ -60,7 +60,7 @@ const Services = () => {
                 <h2 className="text-5xl font-semibold mb-6 text-center">All Services</h2>
 
                 {/* Job Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6">
                     {filteredJobs.map(job => (
                         <Jobcard key={job.id} job={job} />
                     ))}
