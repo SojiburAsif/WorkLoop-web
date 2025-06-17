@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* Font Utility Classes */
+
 .poppins-font {
     font-family: "Poppins", sans-serif;
 }
@@ -16,10 +16,10 @@
 
 .fontawesome {
     font-family: "Font Awesome 6 Free";
-    font-weight: 900; /* For solid icons */
+    font-weight: 900;
 }
 
-/* ✅ Oswald Font Class */
+
 .oswald-font {
     font-family: "Oswald", sans-serif;
 }
