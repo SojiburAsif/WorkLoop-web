@@ -156,7 +156,7 @@ const ToDo = () => {
                                                     id={`status-${b._id}`}
                                                     value={selectedStatuses[b._id] ?? 'pending'}
                                                     onChange={e => handleStatusSelect(b._id, e.target.value)}
-                                                    className="w-full border rounded px-3 py-2 bg-gray-50 text-gray-800"
+                                                    className="w-full  rounded px-3 py-2 bg-gray-50 text-gray-800"
                                                 >
                                                     <option value="pending">Pending</option>
                                                     <option value="working">Working</option>
