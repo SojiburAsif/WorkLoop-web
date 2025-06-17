@@ -28,7 +28,7 @@ const ToDo = () => {
             .then(res => res.json())
             .then(data => {
                 const filtered = data.filter(
-                    b => b.providerEmail === user.email && b.userEmail !== user.email
+                    b => b.providerEmail === user.email 
                 );
                 setBookings(filtered);
 

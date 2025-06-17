@@ -41,7 +41,6 @@ function SingleServiceDetails() {
                 {/* --- Text Content Section --- */}
                 <div className="w-full md:w-2/5 p-6 flex flex-col justify-between space-y-10">
 
-                    {/* --- Service Info --- */}
                     <div className={`space-y-6 border-b pb-6 ${borderClass}`}>
                         <h1 className={`text-5xl font-bold ${textClass}`}>{title}</h1>
 
@@ -52,7 +51,6 @@ function SingleServiceDetails() {
                         </p>
                     </div>
 
-                    {/* --- Provider Info --- */}
                     <div className="space-y-4">
                         <h2 className={`text-2xl font-semibold mb-2 ${textClass}`}>Service Provider</h2>
 

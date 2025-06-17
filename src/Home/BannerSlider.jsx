@@ -4,7 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Keyboard, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css/effect-fade';
+import { Keyboard, Pagination, Navigation, Autoplay, EffectFade } from 'swiper/modules';
 import { Typewriter } from 'react-simple-typewriter';
 import { ThemeContext } from '../Them/ThemProvider';
 import { motion } from 'framer-motion';
@@ -28,7 +29,11 @@ const Banner = () => {
                         Empower Your{' '}
                         <span className="text-blue-500">
                             <Typewriter
-                                words={['Explore Services from Others', 'Book & Track Service Status', 'Share Your Services Effortlessly']}
+                                words={[
+                                    'Explore Services from Others',
+                                    'Book & Track Service Status',
+                                    'Share Your Services Effortlessly'
+                                ]}
                                 loop={true}
                                 cursor
                                 cursorStyle="|"
@@ -49,9 +54,7 @@ const Banner = () => {
                             to="/add-task"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            animate={{
-                                scale: [1, 1.05, 1],
-                            }}
+                            animate={{ scale: [1, 1.05, 1] }}
                             transition={{
                                 duration: 2,
                                 repeat: Infinity,
@@ -66,9 +69,7 @@ const Banner = () => {
                             to="/services"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            animate={{
-                                scale: [1, 1.05, 1],
-                            }}
+                            animate={{ scale: [1, 1.05, 1] }}
                             transition={{
                                 duration: 2,
                                 repeat: Infinity,
@@ -93,7 +94,9 @@ const Banner = () => {
                     keyboard={{ enabled: true }}
                     pagination={{ clickable: true }}
                     navigation={true}
-                    modules={[Keyboard, Pagination, Navigation]}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                    effect="fade"
+                    modules={[Keyboard, Pagination, Navigation, Autoplay, EffectFade]}
                     className="rounded-2xl"
                 >
                     {images.map((src, idx) => (
