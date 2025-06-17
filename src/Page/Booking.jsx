@@ -59,12 +59,12 @@ const Booking = () => {
     return (
         <div className={`min-h-screen py-10 ${bgClass}`}>
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 px-4">
-                {/* Lottie Animation */}
+             
                 <div className="w-full md:w-1/2 lg:w-2/5">
                     <Lottie animationData={loginAnimation} loop />
                 </div>
 
-                {/* Booking Form */}
+             
                 <div className={`w-full md:w-2/3 lg:w-1/2 p-8 rounded-2xl shadow-2xl ${bgClass}`}>
                     <h2 className={`text-3xl font-bold mb-6 ${textClass}`}>Book Service</h2>
                     <form className="space-y-6 text-lg" onSubmit={e => { e.preventDefault(); handlePurchase(); }}>
