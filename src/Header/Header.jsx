@@ -77,7 +77,7 @@ const Header = () => {
                         </ul>
                     </div>
 
-                    <Link to="/">
+                    <Link to="/" className="hidden lg:block">
                         {theme === 'dark' ? (
                             <img
                                 className="w-48 h-auto object-contain"
@@ -92,6 +92,8 @@ const Header = () => {
                             />
                         )}
                     </Link>
+
+
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
@@ -99,16 +101,31 @@ const Header = () => {
                         <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
                         <li><NavLink to="/services" className={navLinkClass}>Services</NavLink></li>
                         {user && (
-                            <li className="relative group">
-                                <span className="cursor-pointer text-inherit">Dashboard</span>
-                                <ul
-                                    className={`absolute hidden group-hover:flex flex-col p-2 rounded shadow-lg mt-6 z-10 text-sm space-y-2 min-w-[180px] ${dropdownBg}`}
-                                >
-                                    <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
-                                    <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
-                                    <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
-                                    <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
-                                </ul>
+                            <li>
+                                <div className="dropdown dropdown-end">
+                                    <label tabIndex={0} className=" m-1 flex items-center gap-1">
+                                        Dashboard
+                                        <svg
+                                            className="w-4 h-4 transition-transform duration-300 group-focus:rotate-180"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className={`dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ${dropdownBg}`}
+                                    >
+                                        <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
+                                        <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
+                                        <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
+                                        <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
+                                    </ul>
+                                </div>
                             </li>
                         )}
                     </ul>
@@ -136,21 +153,22 @@ const Header = () => {
                     </button>
 
                     {!user ? (
-                        <>
+                        <div className="flex flex-wrap items-center justify-end gap-2 mt-3 sm:mt-0">
                             <Link
                                 to="/login"
-                                className="font-semibold hover:underline hover:text-blue-500"
+                                className="font-semibold text-sm sm:text-base hover:underline hover:text-blue-500"
                             >
                                 Login
                             </Link>
 
                             <Link
                                 to="/register"
-                                className="text-lg font-medium rounded-full mx-2 px-7 py-3 transition border bg-white dark:bg-black text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black"
+                                className="text-sm sm:text-base font-medium rounded-full px-5 py-2 sm:px-7 sm:py-3 transition border bg-white dark:bg-black text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black"
                             >
                                 Register
                             </Link>
-                        </>
+                        </div>
+
                     ) : (
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className=" avatar">

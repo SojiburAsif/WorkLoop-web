@@ -28,11 +28,11 @@ const cardsData = [
     date: 'June 3, 2025',
   },
   {
-    image: 'https://i.ibb.co/cS0w446J/home-2486092.jpg',
-    category: 'Home Cleaning',
-    title: 'Deep Cleaning for Homes, Kitchens & Bathrooms',
-    btnHref: '/services/cleaning',
-    date: 'June 3, 2025',
+    image: 'https://i.postimg.cc/k56WGvXj/g5ebfedf29339e91734dcdc7d5072e878532c3056780136dda52111a63a4074a2b8c8e196c43b22e37a281977c5eb57ba2fd.jpg',
+    category: 'Home Repair',
+    title: 'Expert Repair Services for Electrical & Plumbing Issues',
+    btnHref: '/services/repair',
+    date: 'June 10, 2025',
   }
 ];
 
@@ -58,11 +58,11 @@ const CardsPage = () => {
   const { theme } = useContext(ThemeContext);
 
   const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-white';
- 
+
   const mainTextClass = theme === 'dark' ? 'text-white' : 'text-black';
 
   const subTextClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
- 
+
   const badgeClass = theme === 'dark'
     ? 'badge badge-outline badge-info border-gray-500 text-gray-300'
     : 'badge badge-outline badge-info border-blue-500 text-blue-600';

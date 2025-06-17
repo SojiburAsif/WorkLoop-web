@@ -13,7 +13,7 @@ const Footer = () => {
     const { theme } = useContext(ThemeContext);
 
     // Dynamic classes based on theme
-    const bgClass = theme === 'dark' ? 'bg-black' : 'bg-white shadow-2xl ';
+    const bgClass = theme === 'dark' ? 'bg-black' : 'bg-white shadow-2xl';
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
     const subBgClass = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100';
     const linkHoverDark = theme === 'dark' ? 'hover:text-blue-400' : '';
@@ -21,9 +21,9 @@ const Footer = () => {
         `block text-lg ${isActive ? 'text-blue-500 underline' : textClass} hover:underline`;
 
     return (
-        <footer className={`${bgClass} space-grotesk ${textClass}`}>            
+        <footer className={`${bgClass} mt-7  ${textClass}`}>
             <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {/* Logo & Contact */}
+                {/* Logo and Contact Info */}
                 <div className="space-y-5">
                     <div className="flex items-center space-x-3 sh">
                         {theme === 'dark' ? (
@@ -41,7 +41,7 @@ const Footer = () => {
                         )}
                     </div>
                     <p className="text-lg leading-relaxed">
-                        <strong>Phone:</strong> +12 (3) 456 0000
+                        <strong>Phone:</strong> +8801840587095
                         <br />
                         <strong>Email:</strong>{' '}
                         <a href="mailto:asif81534@gmail.com" className="underline">
@@ -67,7 +67,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Pages */}
+                {/* Page Links */}
                 <div>
                     <h6 className="text-3xl font-semibold mb-4">Pages</h6>
                     <ul className="p-2 space-y-2">
@@ -101,12 +101,14 @@ const Footer = () => {
                         <input
                             type="email"
                             placeholder="Your Email"
-                            className="w-full px-4 py-3.5  rounded bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className={`w-full px-4 py-3.5 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+                                ${theme === 'dark' ? 'bg-gray-700 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
                         />
                         <textarea
                             placeholder="Your Message"
                             rows="4"
-                            className="w-full px-4 py-2 rounded bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className={`w-full px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
+                                ${theme === 'dark' ? 'bg-gray-700 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
                         ></textarea>
                         <button
                             type="submit"
@@ -119,7 +121,7 @@ const Footer = () => {
             </div>
 
             {/* Copyright */}
-            <div className={`${subBgClass} py-5 mt-4 text-center text-lg ${textClass}`}>                
+            <div className={`${subBgClass} py-5 mt-4 text-center text-lg ${textClass}`}>
                 <p>© 2025 Servicehub. All Rights Reserved.</p>
             </div>
         </footer>

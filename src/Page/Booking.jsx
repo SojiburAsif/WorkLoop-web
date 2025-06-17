@@ -37,9 +37,14 @@ const Booking = () => {
             instructions,
             priceRange: service.priceRange,
             currency: service.currency,
+            status: 'pending', 
             bookedAt: new Date().toISOString()
         };
-        axios.post('https://backend-zeta-ochre-92.vercel.app/bookings', bookingData)
+        axios.post('https://backend-zeta-ochre-92.vercel.app/bookings', bookingData, {
+            withCredentials: true
+        }
+
+        )
             .then(res => {
                 console.log(res);
                 Swal.fire('Booked!', 'Your service has been booked.', 'success');

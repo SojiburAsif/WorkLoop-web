@@ -163,7 +163,7 @@ const AddService = () => {
 
                     <button
                         type="submit"
-                        className={`w-full py-7 btn   font-bold rounded-lg transition ${hoverBg} text-lg`}
+                        className={`w-full py-7 btn  bg-blue-500 font-bold rounded-lg transition ${hoverBg} text-lg`}
                     >
                         Add Service
                     </button>
