@@ -2,9 +2,12 @@
 
 # 🚀 Project Name: [SERVICES-HUBE]
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)]([https://symphonious-bubblegum-ad2f44.netlify.app/](https://celadon-griffin-404747.netlify.app))
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://celadon-griffin-404747.netlify.app)
 
 ---
+
+**Live URL:**  
+https://celadon-griffin-404747.netlify.app
 
 ## 📂 Selected Category:
 **Service Sharing Platform**
