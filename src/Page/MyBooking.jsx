@@ -108,19 +108,6 @@ const MyBooking = () => {
                                     )}
                                 </div>
 
-                                {/* Uncomment if you want provider image at bottom */}
-                                {/* {job.providerImage && (
-                                    <div className="mt-4 flex items-center space-x-3">
-                                        <img
-                                            src={job.providerImage}
-                                            alt={job.providerName}
-                                            className="w-10 h-10 rounded-full object-cover border"
-                                        />
-                                        <span className={`${subTextClass} text-sm`}>
-                                            {job.providerName}
-                                        </span>
-                                    </div>
-                                )} */}
                             </div>
                         </div>
                     ))}

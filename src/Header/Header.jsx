@@ -103,7 +103,7 @@ const Header = () => {
                         {user && (
                             <li>
                                 <div className="dropdown dropdown-end">
-                                    <label tabIndex={0} className=" m-1 flex items-center gap-1">
+                                    <label tabIndex={0} className="  flex items-center gap-1">
                                         Dashboard
                                         <svg
                                             className="w-4 h-4 transition-transform duration-300 group-focus:rotate-180"

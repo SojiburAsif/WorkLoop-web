@@ -39,7 +39,7 @@ const Manage = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://backend-zeta-ochre-92.vercel.app/working/${id}`)
+                axios.delete(`https://services-server.vercel.app/working/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0 || res.data.success) {
                             Swal.fire({

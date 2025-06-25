@@ -21,7 +21,7 @@ const ToDo = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`https://backend-zeta-ochre-92.vercel.app/bookings`,
+        fetch(`https://services-server.vercel.app/bookings`,
             { credentials: 'include' }
 
         )
@@ -54,7 +54,7 @@ const ToDo = () => {
         const newStatus = selectedStatuses[id] || 'pending';
         const newServiceStatus = selectedServiceStatuses[id] || 'active';
 
-        axios.put(`https://backend-zeta-ochre-92.vercel.app/bookings/${id}`, {
+        axios.put(`https://services-server.vercel.app/bookings/${id}`, {
             status: newStatus,
             serviceStatus: newServiceStatus
         })

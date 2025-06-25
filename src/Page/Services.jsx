@@ -12,7 +12,7 @@ const Services = () => {
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
 
     useEffect(() => {
-        fetch('https://backend-zeta-ochre-92.vercel.app/working')
+        fetch('https://services-server.vercel.app/working')
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

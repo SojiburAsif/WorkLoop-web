@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
 
             if (currentuser?.email) {
                 const userData = { email: currentuser.email }
-                axios.post('https://backend-zeta-ochre-92.vercel.app/jwt', userData,{
+                axios.post('https://services-server.vercel.app/jwt', userData,{
                     withCredentials: true
                 })
                     .then(res => {

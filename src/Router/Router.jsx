@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
             element: <PrivateRouter>
                 <SinglePage></SinglePage>
             </PrivateRouter>,
-            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
+            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
         },
         {
             path: '/services',
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
         {
             path: 'booking/:id',
             element: <PrivateRouter><BookingForm></BookingForm></PrivateRouter>,
-            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
+            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
         },
         {
             path: '/manage-service',
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
             element: <PrivateRouter>
                 <EditServices></EditServices>
             </PrivateRouter>,
-            loader: ({ params }) => fetch(`https://backend-zeta-ochre-92.vercel.app/working/${params.id}`)
+            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
         },
         {
             path: '/booked-services',

@@ -40,7 +40,7 @@ const Booking = () => {
             status: 'pending', 
             bookedAt: new Date().toISOString()
         };
-        axios.post('https://backend-zeta-ochre-92.vercel.app/bookings', bookingData, {
+        axios.post('https://services-server.vercel.app/bookings', bookingData, {
             withCredentials: true
         }
 

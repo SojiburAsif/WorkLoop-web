@@ -81,7 +81,7 @@ const EditServices = () => {
             providerImage: user?.photoURL || '',
         };
 
-        axios.put(`https://backend-zeta-ochre-92.vercel.app/working/${service._id}`, updatedServiceData)
+        axios.put(`https://services-server.vercel.app/working/${service._id}`, updatedServiceData)
             .then(res => {
                 console.log(res);
                 Swal.fire("Updated!", "Service updated successfully!", "success");

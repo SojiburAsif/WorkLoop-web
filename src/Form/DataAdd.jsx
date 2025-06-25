@@ -54,7 +54,7 @@ const AddService = () => {
 
         console.log("Final Data To Send:", serviceData);
 
-        axios.post('https://backend-zeta-ochre-92.vercel.app/working', serviceData)
+        axios.post('https://services-server.vercel.app/working', serviceData)
             .then(res => {
                 console.log(res);
                 form.reset();
