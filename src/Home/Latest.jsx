@@ -126,7 +126,7 @@ const CardsPage = () => {
   const closeModal = () => setSelectedCard(null);
 
   return (
-    <main className={`${bgClass} py-12 mt-14 min-h-screen`}>
+    <main className={`${bgClass} py-12 `}>
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           className="text-center mb-12"

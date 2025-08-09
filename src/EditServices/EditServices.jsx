@@ -94,25 +94,26 @@ const EditServices = () => {
     };
 
     return (
-        <section className={`relative min-h-screen flex items-center justify-center px-10 py-10 ${containerClass}`}>
-            <div className="w-full max-w-screen-lg flex flex-col md:flex-row items-start gap-14">
+        <section className={`relative mt-10 flex items-center justify-center px-6 py-10 ${containerClass}`}>
+            <div className="w-full max-w-5xl flex flex-col md:flex-row items-start gap-10">
+                
                 {/* Animation */}
-                <div className=" md:block md:w-2/5 flex flex-col items-start justify-start relative -ml-16">
+                <div className="hidden md:flex md:w-2/5 justify-center">
                     <Lottie
                         animationData={loginAnimation}
                         loop
-                        className="w-[400px] h-[450px]"
+                        className="w-[280px] h-[320px]"
                     />
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleUpdateService} className="w-full md:w-3/5 space-y-8 cursor-default text-base">
+                <form onSubmit={handleUpdateService} className="w-full md:w-3/5 space-y-6 cursor-default text-base">
                     <div className="text-center">
-                        <h2 className="text-4xl font-extrabold">Update Service Details</h2>
-                        <p className="mt-3 text-base">Modify the fields below to update your service.</p>
+                        <h2 className="text-3xl text-blue-500 font-bold">Update Service Details</h2>
+                        <p className="mt-2 text-sm">Modify the fields below to update your service.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[
                             { id: "title", label: "Service Title", type: "text", placeholder: "Enter Title", span: true },
                             { id: "serviceImageUrl", label: "Image URL", type: "url", placeholder: "Enter Photo URL" },
@@ -135,7 +136,7 @@ const EditServices = () => {
                             { id: "description", label: "Description", type: "textarea", placeholder: "Describe your service", span: true }
                         ].map(({ id, label, type, placeholder, options, span }) => (
                             <fieldset key={id} className={`flex flex-col${span ? ' sm:col-span-2' : ''}`}>
-                                <label htmlFor={id} className="mb-3 font-semibold">{label}</label>
+                                <label htmlFor={id} className="mb-2 font-semibold">{label}</label>
                                 {type === "select" ? (
                                     <select
                                         id={id}
@@ -143,7 +144,7 @@ const EditServices = () => {
                                         required
                                         value={formData[id]}
                                         onChange={handleChange}
-                                        className={`w-full px-5 py-3 border rounded-lg text-base ${inputBg} border-gray-300 dark:border-gray-600`}
+                                        className={`w-full px-4 py-2 border rounded-lg text-sm ${inputBg} border-gray-300 dark:border-gray-600`}
                                     >
                                         {options.map(option => (
                                             <option key={option.split(' ')[0]} value={option.split(' ')[0]}>
@@ -155,12 +156,12 @@ const EditServices = () => {
                                     <textarea
                                         id={id}
                                         name={id}
-                                        rows="5"
+                                        rows="4"
                                         required
                                         placeholder={placeholder}
                                         value={formData[id]}
                                         onChange={handleChange}
-                                        className={`w-full px-5 py-3 border rounded-lg text-base ${inputBg} border-gray-300 dark:border-gray-600 resize-none`}
+                                        className={`w-full px-4 py-2 border rounded-lg text-sm ${inputBg} border-gray-300 dark:border-gray-600 resize-none`}
                                     ></textarea>
                                 ) : (
                                     <input
@@ -171,7 +172,7 @@ const EditServices = () => {
                                         placeholder={placeholder}
                                         value={formData[id]}
                                         onChange={handleChange}
-                                        className={`w-full px-5 py-3 border rounded-lg text-base ${inputBg} border-gray-300 dark:border-gray-600`}
+                                        className={`w-full px-4 py-2 border rounded-lg text-sm ${inputBg} border-gray-300 dark:border-gray-600`}
                                     />
                                 )}
                             </fieldset>
@@ -179,30 +180,30 @@ const EditServices = () => {
 
                         {/* Provider Name */}
                         <fieldset className="flex flex-col">
-                            <label className="mb-3 font-semibold">Provider Name</label>
+                            <label className="mb-2 font-semibold">Provider Name</label>
                             <input
                                 type="text"
                                 value={user?.displayName || ''}
                                 readOnly
-                                className={`w-full px-5 py-3 border rounded-lg text-base ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
+                                className={`w-full px-4 py-2 border rounded-lg text-sm ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
                             />
                         </fieldset>
 
                         {/* Provider Email */}
                         <fieldset className="flex flex-col">
-                            <label className="mb-3 font-semibold">Provider Email</label>
+                            <label className="mb-2 font-semibold">Provider Email</label>
                             <input
                                 type="email"
                                 value={user?.email || ''}
                                 readOnly
-                                className={`w-full px-5 py-3 border rounded-lg text-base ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
+                                className={`w-full px-4 py-2 border rounded-lg text-sm ${readOnlyBg} border-gray-300 dark:border-gray-600 cursor-not-allowed`}
                             />
                         </fieldset>
                     </div>
 
                     <button
                         type="submit"
-                        className={`w-full py-5 bg-blue-600 text-white font-bold rounded-lg transition ${hoverBg} text-lg`}
+                        className={`w-full py-3 bg-blue-600 text-white font-bold rounded-lg transition ${hoverBg} text-lg`}
                     >
                         Update Service
                     </button>

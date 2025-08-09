@@ -15,13 +15,13 @@ const Footer = () => {
     // Dynamic classes based on theme
     const bgClass = theme === 'dark' ? 'bg-black' : 'bg-white shadow-2xl';
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-800';
-    const subBgClass = theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100';
+    const subBgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100';
     const linkHoverDark = theme === 'dark' ? 'hover:text-blue-400' : '';
     const navLinkClass = ({ isActive }) =>
-        `block text-lg ${isActive ? 'text-blue-500 underline' : textClass} hover:underline`;
+        `block text-lg  w-40 ${isActive ? 'text-blue-500 underline' : textClass} hover:underline`;
 
     return (
-        <footer className={`${bgClass} mt-7  ${textClass}`}>
+        <footer className={`${bgClass}   ${textClass}`}>
             <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {/* Logo and Contact Info */}
                 <div className="space-y-5">
@@ -67,10 +67,10 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Page Links */}
+
                 <div>
                     <h6 className="text-3xl font-semibold mb-4">Pages</h6>
-                    <ul className="p-2 space-y-2">
+                    <ul className="space-y-2">
                         <li>
                             <NavLink to="/addtask" className={navLinkClass}>
                                 Add Service
@@ -102,13 +102,13 @@ const Footer = () => {
                             type="email"
                             placeholder="Your Email"
                             className={`w-full px-4 py-3.5 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
-                                ${theme === 'dark' ? 'bg-gray-700 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
+                                ${theme === 'dark' ? 'bg-gray-900 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
                         />
                         <textarea
                             placeholder="Your Message"
                             rows="4"
                             className={`w-full px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition 
-                                ${theme === 'dark' ? 'bg-gray-700 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
+                                ${theme === 'dark' ? 'bg-gray-900 text-white placeholder-gray-300' : 'bg-gray-100 text-gray-900'}`}
                         ></textarea>
                         <button
                             type="submit"

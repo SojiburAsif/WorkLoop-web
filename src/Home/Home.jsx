@@ -5,6 +5,8 @@ import HomePage from './Servis';
 import Latest from './Latest';
 import HotJobs from './HotJobs';
 import Review from './Review';
+import Promotion from './Promotion';
+import DiscountPage from './Discounts';
 
 const Home = () => {
     const jobsPromis = fetch('https://services-server.vercel.app/working').then(res=> res.json())
@@ -18,9 +20,13 @@ const Home = () => {
 
             <div className="c">
                 <HotJobs jobsPromis={jobsPromis}></HotJobs>
-                <Latest></Latest>
+              
+                  <DiscountPage></DiscountPage>
                 <Review></Review>
+                <Latest></Latest>
+                 <Promotion></Promotion>
                 <HomePage></HomePage>
+               
                 {/* <AddTask /> */}
 
             </div>
