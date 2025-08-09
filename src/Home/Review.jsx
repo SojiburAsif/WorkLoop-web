@@ -50,11 +50,7 @@ const initialReviews = [
 const ReviewGrid = () => {
   const { theme, primaryColor } = useContext(ThemeContext);
   const [reviews, setReviews] = useState(initialReviews);
-  const [formData, setFormData] = useState({
-    userName: "",
-    rating: 0,
-    comment: "",
-  });
+  
 
   const primaryClr = primaryColor || "#3b82f6"; // fallback blue-500
   const primaryClrDark = primaryClr + "cc";
@@ -66,15 +62,9 @@ const ReviewGrid = () => {
   // Border only for light theme, none for dark
   const borderStyle = theme === "dark" ? "none" : "2px solid #000000";
 
-  const mainTextClass = theme === "dark" ? "text-white" : "text-black";
+  const mainTextClass  = theme === "dark" ? "text-white" : "text-black";
   const commentTextClass = theme === "dark" ? "text-gray-300" : "text-gray-700";
   const dateTextClass = theme === "dark" ? "text-gray-400" : "text-gray-500";
-
-
-
- 
-
-
 
 
   return (
