@@ -133,53 +133,8 @@ const Header = () => {
                         </li>
                         {user && (
                             <li>
-                                <div className="dropdown dropdown-end">
-                                    <label
-                                        tabIndex={0}
-                                        className="flex items-center gap-1"
-                                    >
-                                        Dashboard
-                                        <svg
-                                            className="w-4 h-4 transition-transform duration-300 group-focus:rotate-180"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M19 9l-7 7-7-7"
-                                            />
-                                        </svg>
-                                    </label>
-                                    <ul
-                                        tabIndex={0}
-                                        className={`dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ${dropdownBg}`}
-                                    >
-                                        <li>
-                                            <NavLink to="/addtask" className={navLinkClass}>
-                                                Add Service
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/manage-service" className={navLinkClass}>
-                                                Manage Service
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/booked-services" className={navLinkClass}>
-                                                Booked Services
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/service-to-do" className={navLinkClass}>
-                                                Service-To-Do
-                                            </NavLink>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <NavLink to={'/Dashboard'}>
+                                Dashboard</NavLink>
                             </li>
                         )}
                     </ul>

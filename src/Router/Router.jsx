@@ -1,7 +1,4 @@
-import {
-    createBrowserRouter,
-
-} from "react-router";
+import { createBrowserRouter } from "react-router";
 import Root from "./Root";
 import Login from "../Form/Login";
 import Register from "../Form/Register";
@@ -16,77 +13,110 @@ import Manage from "../Page/Manage";
 import EditServices from "../EditServices/EditServices";
 import MyBooking from "../Page/MyBooking";
 import ToDo from "../Page/ToDo";
-
+import DashbordLayout from "../Dashbord/Main/DashbordLayout";
+import MainDashbord from "../Dashbord/Main/MainDashbord";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root></Root>,
-        children: [{
-            index: true,
-            Component: Home,
-            path: '/'
-        },
-        {
-            path: 'addtask',
-            element: <PrivateRouter>
-                <AddTask></AddTask>
+        element: <Root />,
+        children: [
+            {
+                index: true,
+                element: <Home />
+            }
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <PrivateRouter>
+                <DashbordLayout />
             </PrivateRouter>
-        },
-        {
-            path: '/working/:id',
-            element: <PrivateRouter>
-                <SinglePage></SinglePage>
-            </PrivateRouter>,
-            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
-        },
-        {
-            path: '/services',
-            element: <Services></Services>
-        },
-        {
-            path: 'booking/:id',
-            element: <PrivateRouter><BookingForm></BookingForm></PrivateRouter>,
-            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
-        },
-        {
-            path: '/manage-service',
-            element: <PrivateRouter>
-                <Manage></Manage>
-            </PrivateRouter>
-        },
-        {
-            path: '/EditServices/:id',
-            element: <PrivateRouter>
-                <EditServices></EditServices>
-            </PrivateRouter>,
-            loader: ({ params }) => fetch(`https://services-server.vercel.app/working/${params.id}`)
-        },
-        {
-            path: '/booked-services',
-            element: <PrivateRouter>
-                <MyBooking></MyBooking>
-            </PrivateRouter>,
-        },
-        {
-            path: '/service-to-do',
-            element: <PrivateRouter>
-                <ToDo></ToDo>
-            </PrivateRouter>
-        }
-
+        ),
+        children: [
+            {
+                index: true,
+                element: <MainDashbord />
+            },
+            {
+                path: "addtask",
+                element: (
+                    <PrivateRouter>
+                        <AddTask />
+                    </PrivateRouter>
+                )
+            },
+            {
+                path: "working/:id",
+                element: (
+                    <PrivateRouter>
+                        <SinglePage />
+                    </PrivateRouter>
+                ),
+                loader: ({ params }) =>
+                    fetch(`https://services-server.vercel.app/working/${params.id}`)
+            },
+            {
+                path: "services",
+                element: <Services />
+            },
+            {
+                path: "booking/:id",
+                element: (
+                    <PrivateRouter>
+                        <BookingForm />
+                    </PrivateRouter>
+                ),
+                loader: ({ params }) =>
+                    fetch(`https://services-server.vercel.app/working/${params.id}`)
+            },
+            {
+                path: "manage-service",
+                element: (
+                    <PrivateRouter>
+                        <Manage />
+                    </PrivateRouter>
+                )
+            },
+            {
+                path: "EditServices/:id",
+                element: (
+                    <PrivateRouter>
+                        <EditServices />
+                    </PrivateRouter>
+                ),
+                loader: ({ params }) =>
+                    fetch(`https://services-server.vercel.app/working/${params.id}`)
+            },
+            {
+                path: "booked-services",
+                element: (
+                    <PrivateRouter>
+                        <MyBooking />
+                    </PrivateRouter>
+                )
+            },
+            {
+                path: "service-to-do",
+                element: (
+                    <PrivateRouter>
+                        <ToDo />
+                    </PrivateRouter>
+                )
+            }
         ]
     },
     {
         path: "/login",
-        Component: Login,
+        element: <Login />
     },
     {
-        path: '/register',
-        Component: Register
+        path: "/register",
+        element: <Register />
     },
     {
         path: "*",
-        element: <Error />,
-    },
+        element: <Error />
+    }
 ]);
