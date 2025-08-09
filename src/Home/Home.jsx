@@ -4,6 +4,7 @@ import AddTask from '../Form/DataAdd';
 import HomePage from './Servis';
 import Latest from './Latest';
 import HotJobs from './HotJobs';
+import Review from './Review';
 
 const Home = () => {
     const jobsPromis = fetch('https://services-server.vercel.app/working').then(res=> res.json())
@@ -18,6 +19,7 @@ const Home = () => {
             <div className="c">
                 <HotJobs jobsPromis={jobsPromis}></HotJobs>
                 <Latest></Latest>
+                <Review></Review>
                 <HomePage></HomePage>
                 {/* <AddTask /> */}
 

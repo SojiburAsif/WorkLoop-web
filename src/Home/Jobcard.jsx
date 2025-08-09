@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { HiArrowNarrowRight, HiLocationMarker } from 'react-icons/hi';
-import { Link } from 'react-router';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router'; // fixed from 'react-router'
 import { ThemeContext } from '../Them/ThemProvider';
 
 const Jobcard = ({ job }) => {
@@ -9,96 +8,77 @@ const Jobcard = ({ job }) => {
   const {
     _id, title, description,
     serviceImageUrl, serviceArea,
-    priceRange, currency, providerName,
+    priceRange = ['N/A', 'N/A'],
+    currency = '৳',
+    providerName,
   } = job;
 
   const displayImage = serviceImageUrl || 'https://i.ibb.co/WNdTbN06/lake-9585821.jpg';
-  const bgClass        = theme === 'dark' ? 'bg-black' : 'bg-white';
-  const textClass      = theme === 'dark' ? 'text-white' : 'text-black';
-  const badgeBgClass   = theme === 'dark' ? 'bg-white' : 'bg-black';
-  const badgeTextClass = theme === 'dark' ? 'text-black' : 'text-white';
-  const btnBgClass     = theme === 'dark' ? 'bg-white' : 'bg-black';
-  const btnTextClass   = theme === 'dark' ? 'text-black' : 'text-white';
+
+  const textClass = theme === 'dark' ? 'text-white' : 'text-black';
+  const badgeBgClass = theme === 'dark' ? 'badge-outline text-white border-white' : 'badge-outline';
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-      role="region"
-      aria-labelledby={`job-title-${_id}`}
-      className={`
-        card w-full max-w-3xl rounded-lg overflow-hidden transition-shadow duration-300
-        hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]
-        ${bgClass}
-        ${theme === 'dark'
-          ? 'shadow-[0_4px_6px_rgba(255,255,255,0.3)]'
-          : 'shadow-xl'}
-      `}
-    >
+    <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
         <img
           src={displayImage}
           alt={title}
-          className="w-full h-56 object-cover"
+          className="object-cover w-full h-56"
+          loading="lazy"
         />
       </figure>
 
-      <div className="card-body p-6">
-        <h2 id={`job-title-${_id}`} className={`text-3xl font-bold mb-2 ${textClass}`}>
-          {title}
-        </h2>
+      <div className="card-body">
+        {/* Title */}
+        <h2 className="card-title text-xl md:text-2xl font-bold">{title}</h2>
 
-        <p className={`text-lg line-clamp-4 mb-4 ${textClass}`}>
+        {/* Description */}
+        <p className={`line-clamp-3 text-sm ${textClass}`}>
           {description}
         </p>
 
-        <p className={`text-sm mb-4 ${textClass}`}>
-          Posted by <span className="font-semibold">{providerName || 'Unknown'}</span>
+        {/* Posted by */}
+        <p className={`text-sm ${textClass}`}>
+          Posted by <span className="font-semibold text-blue-500">{providerName || 'Unknown'}</span>
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {serviceArea?.length ? (
-            serviceArea.map((area, idx) => (
-              <span
-                key={idx}
-                className={`flex items-center gap-1 ${badgeBgClass} ${badgeTextClass} text-sm px-2 py-1 rounded`}
-                aria-label={`Service area: ${area}`}
-              >
-                <HiLocationMarker className="w-4 h-4" aria-hidden="true" />
-                {area}
-              </span>
-            ))
-          ) : (
-            <span className="text-gray-500 text-sm">No service area listed</span>
-          )}
-        </div>
+        {/* Area badges with "providerName:" label shown once */}
+        {serviceArea?.length > 0 && (
+          <div className="mt-2">
+            <p className="text-sm font-semibold text-blue-500 mb-1">
+              {'Arya'}:
+            </p>
+            <div className="card-actions justify-start flex-wrap gap-2">
+              {serviceArea.map((area, idx) => (
+                <div
+                  key={idx}
+                  className={`badge ${badgeBgClass} flex items-center gap-1 text-xs px-2 py-1`}
+                >
+                  <HiLocationMarker className="w-4 h-4" />
+                  {area}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-        <div className="flex items-center justify-between">
-          <span className={`font-bold text-xl ${textClass}`}>
-            {currency} {priceRange?.[0]} - {priceRange?.[1]}
+        {/* Price & View Button */}
+        <div className="card-actions justify-between text-2xl items-center mt-4">
+          <span className="text-lg font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-lg">
+            {currency} {priceRange[0]} - {priceRange[1]}
           </span>
 
-          {/* Looping pulse animation on the button */}
-          <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+
+          <Link
+            to={`/working/${_id}`}
+            className="btn bg-blue-500 hover:bg-blue-600 text-white text-base px-6 py-2"
           >
-            <Link
-              to={`/working/${_id}`}
-              aria-label={`View details for ${title}`}
-              className={`
-                flex items-center gap-2 font-semibold text-lg 
-                rounded-lg px-6 py-3 transition
-                ${btnBgClass} ${btnTextClass}
-                hover:opacity-90 active:opacity-80
-              `}
-            >
-              View Details <HiArrowNarrowRight className="w-6 h-6" aria-hidden="true" />
-            </Link>
-          </motion.div>
+            View <HiArrowNarrowRight className="w-5 h-5 ml-1" />
+          </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

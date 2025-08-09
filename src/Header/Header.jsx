@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router'; // Make sure you use react-router-dom in your project
 import { AuthContext } from '../Contexts/AuthContext';
 import { ThemeContext } from '../Them/ThemProvider';
 import { FaReact, FaSearch } from 'react-icons/fa';
@@ -13,9 +13,10 @@ const Header = () => {
     }, [theme]);
 
     const navLinkClass = ({ isActive }) =>
-        `hover:text-blue-600 transition duration-200 ${isActive
-            ? 'font-semibold text-blue-600'
-            : theme === 'dark'
+        `hover:text-blue-600 transition duration-200 ${
+            isActive
+                ? 'font-semibold text-blue-600'
+                : theme === 'dark'
                 ? 'text-white'
                 : 'text-black'
         }`;
@@ -27,13 +28,11 @@ const Header = () => {
     const hoverBg =
         theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200';
 
-    // const hero =(handelSearch)
-
     return (
-        <div className={`shadow-sm ${containerClass}`}>
+        // Added fixed, top-0, left-0, w-full, z-50 here:
+        <div className={`fixed top-0 left-0 w-full z-50 shadow-sm ${containerClass}`}>
             <div className="navbar min-h-[80px] px-4">
                 <div className="navbar-start flex items-center">
-
                     <div className="dropdown lg:hidden">
                         <div
                             tabIndex={0}
@@ -59,17 +58,43 @@ const Header = () => {
                             tabIndex={0}
                             className={`menu menu-sm dropdown-content rounded-box z-10 mt-3 w-52 p-2 shadow ${dropdownBg}`}
                         >
-                            <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
-                            <li><NavLink to="/services" className={navLinkClass}>Services</NavLink></li>
+                            <li>
+                                <NavLink to="/" className={navLinkClass}>
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/services" className={navLinkClass}>
+                                    Services
+                                </NavLink>
+                            </li>
                             {user && (
                                 <li>
                                     <details>
-                                        <summary className="cursor-pointer text-inherit">Dashboard</summary>
+                                        <summary className="cursor-pointer text-inherit">
+                                            Dashboard
+                                        </summary>
                                         <ul className="p-2 text-sm space-y-2">
-                                            <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
-                                            <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
-                                            <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
-                                            <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
+                                            <li>
+                                                <NavLink to="/addtask" className={navLinkClass}>
+                                                    Add Service
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink to="/manage-service" className={navLinkClass}>
+                                                    Manage Service
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink to="/booked-services" className={navLinkClass}>
+                                                    Booked Services
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink to="/service-to-do" className={navLinkClass}>
+                                                    Service-To-Do
+                                                </NavLink>
+                                            </li>
                                         </ul>
                                     </details>
                                 </li>
@@ -92,18 +117,27 @@ const Header = () => {
                             />
                         )}
                     </Link>
-
-
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-lg font-medium gap-2">
-                        <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
-                        <li><NavLink to="/services" className={navLinkClass}>Services</NavLink></li>
+                        <li>
+                            <NavLink to="/" className={navLinkClass}>
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/services" className={navLinkClass}>
+                                Services
+                            </NavLink>
+                        </li>
                         {user && (
                             <li>
                                 <div className="dropdown dropdown-end">
-                                    <label tabIndex={0} className="  flex items-center gap-1">
+                                    <label
+                                        tabIndex={0}
+                                        className="flex items-center gap-1"
+                                    >
                                         Dashboard
                                         <svg
                                             className="w-4 h-4 transition-transform duration-300 group-focus:rotate-180"
@@ -113,17 +147,37 @@ const Header = () => {
                                             viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M19 9l-7 7-7-7"
+                                            />
                                         </svg>
                                     </label>
                                     <ul
                                         tabIndex={0}
                                         className={`dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ${dropdownBg}`}
                                     >
-                                        <li><NavLink to="/addtask" className={navLinkClass}>Add Service</NavLink></li>
-                                        <li><NavLink to="/manage-service" className={navLinkClass}>Manage Service</NavLink></li>
-                                        <li><NavLink to="/booked-services" className={navLinkClass}>Booked Services</NavLink></li>
-                                        <li><NavLink to="/service-to-do" className={navLinkClass}>Service-To-Do</NavLink></li>
+                                        <li>
+                                            <NavLink to="/addtask" className={navLinkClass}>
+                                                Add Service
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/manage-service" className={navLinkClass}>
+                                                Manage Service
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/booked-services" className={navLinkClass}>
+                                                Booked Services
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/service-to-do" className={navLinkClass}>
+                                                Service-To-Do
+                                            </NavLink>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -132,21 +186,33 @@ const Header = () => {
                 </div>
 
                 <div className="navbar-end flex items-center gap-2">
-
-
                     <button
                         onClick={toggleTheme}
                         className={`p-2 rounded-full transition duration-300 ${hoverBg}`}
                         aria-label="Toggle Dark Mode"
                     >
                         {theme === 'dark' ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 text-yellow-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     d="M12 3v1m0 16v1m8.49-8.49h1M3 12h1m15.36 4.95l.7.71M6.34 6.34l.7.71m12.02 0l-.7.71M6.34 17.66l-.7.71M12 7a5 5 0 100 10 5 5 0 000-10z"
                                 />
                             </svg>
                         ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " fill="currentColor" viewBox="0 0 24 24">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
                                 <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
                             </svg>
                         )}
@@ -168,10 +234,9 @@ const Header = () => {
                                 Register
                             </Link>
                         </div>
-
                     ) : (
                         <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className=" avatar">
+                            <div tabIndex={0} role="button" className="avatar">
                                 <div className="w-14 rounded-full border-2 border-blue-500">
                                     <img
                                         src={user.photoURL || 'https://i.ibb.co/S47T06r9/download-3.png'}
