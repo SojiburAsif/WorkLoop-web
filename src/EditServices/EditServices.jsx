@@ -85,7 +85,7 @@ const EditServices = () => {
             .then(res => {
                 console.log(res);
                 Swal.fire("Updated!", "Service updated successfully!", "success");
-                navigate('/manage-service');
+                navigate('/Dashboard/manage-service'); // <-- এখানে পরিবর্তন
             })
             .catch(error => {
                 console.log(error);
@@ -94,7 +94,7 @@ const EditServices = () => {
     };
 
     return (
-        <section className={`relative mt-10 flex items-center justify-center px-6 py-10 ${containerClass}`}>
+        <section className={`relative min-h-screen flex items-center justify-center px-4 py-10 ${containerClass}`}>
             <div className="w-full max-w-5xl flex flex-col md:flex-row items-start gap-10">
                 
                 {/* Animation */}
@@ -107,14 +107,18 @@ const EditServices = () => {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleUpdateService} className="w-full md:w-3/5 space-y-6 cursor-default text-base">
+                <form
+                    onSubmit={handleUpdateService}
+                    className="w-full md:w-3/5 space-y-6 cursor-default text-base"
+                    style={{ minWidth: '320px', maxWidth: '600px' }}
+                >
                     <div className="text-center">
                         <h2 className="text-3xl text-blue-500 font-bold">Update Service Details</h2>
                         <p className="mt-2 text-sm">Modify the fields below to update your service.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {[
+                        {[ 
                             { id: "title", label: "Service Title", type: "text", placeholder: "Enter Title", span: true },
                             { id: "serviceImageUrl", label: "Image URL", type: "url", placeholder: "Enter Photo URL" },
                             { id: "serviceName", label: "Service Name", type: "text", placeholder: "Enter Service Name" },

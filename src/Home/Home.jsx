@@ -1,37 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../Them/ThemProvider';
 import BannerSlider from './BannerSlider';
-import AddTask from '../Form/DataAdd';
-import HomePage from './Servis';
-import Latest from './Latest';
 import HotJobs from './HotJobs';
-import Review from './Review';
-import Promotion from './Promotion';
 import DiscountPage from './Discounts';
+import Review from './Review';
+import Latest from './Latest';
+import Promotion from './Promotion';
+import HomePage from './Servis';
 
 const Home = () => {
-    const jobsPromis = fetch('https://services-server.vercel.app/working').then(res=> res.json())
-    return (
-        <div>
-            <div className="">
-                <div className="w-full h-[750px] m-0 ">
-                    <BannerSlider />
-                </div>
-            </div>
+  const { theme } = useContext(ThemeContext);
+ const jobsPromis = fetch('https://services-server.vercel.app/working').then(res=> res.json())
+  return (
+    <div className={`${theme === 'light' ? 'bg-gradient-to-br from-blue-50 to-blue-100' : 'bg-black'} min-h-screen transition-colors duration-300`}>
+      <div className="w-full h-[750px]">
+        <BannerSlider />
+      </div>
 
-            <div className="c">
-                <HotJobs jobsPromis={jobsPromis}></HotJobs>
-              
-                  <DiscountPage></DiscountPage>
-                <Review></Review>
-                <Latest></Latest>
-                 <Promotion></Promotion>
-                <HomePage></HomePage>
-               
-                {/* <AddTask /> */}
-
-            </div>
-        </div>
-    );
+      <div className="c">
+        <HotJobs jobsPromis={jobsPromis} />
+        <DiscountPage />
+        <Review />
+        <Latest />
+        <Promotion />
+        <HomePage />
+      </div>
+    </div>
+  );
 };
 
 export default Home;

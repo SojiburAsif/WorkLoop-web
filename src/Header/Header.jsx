@@ -106,7 +106,7 @@ const Header = () => {
                         {theme === 'dark' ? (
                             <img
                                 className="w-48 h-auto object-contain"
-                                src="/dark.png"
+                                src="../../public/ChatGPT Image Aug 10, 2025, 04_19_00 AM.png"
                                 alt="Service Hub Dark Logo"
                             />
                         ) : (

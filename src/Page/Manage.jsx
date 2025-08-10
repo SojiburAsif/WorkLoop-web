@@ -17,7 +17,6 @@ const Manage = () => {
 
     useEffect(() => {
         if (user?.email) {
-
             myApplitionPromise(user.email, user.accessToken)
                 .then(data => {
                     setJobs(data);
@@ -34,8 +33,8 @@ const Manage = () => {
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#2563eb', // blue-600
+            cancelButtonColor: '#dc2626', // red-600
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -61,79 +60,103 @@ const Manage = () => {
         });
     };
 
-    const bgClass = theme === 'dark' ? 'bg-black' : 'bg-white';
-    const textClass = theme === 'dark' ? 'text-white' : 'text-black';
-    const cardBg = theme === 'dark' ? 'bg-gray-900' : 'bg-white';
-    const cardText = theme === 'dark' ? 'text-white' : 'text-black';
+    // পরিবর্তিত ব্যাকগ্রাউন্ড ক্লাস
+    const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-white';
+    const textClass = theme === 'dark' ? 'text-white' : 'text-gray-900';
+    const cardBg = theme === 'dark' ? 'bg-black' : 'bg-white';
+    const cardText = theme === 'dark' ? 'text-white' : 'text-gray-900';
+    const tagBg = theme === 'dark' ? 'bg-blue-700' : 'bg-blue-200';
+    const tagText = theme === 'dark' ? 'text-blue-200' : 'text-blue-900';
 
     return (
-        <div className={`${bgClass} min-h-screen py-8 transition-colors duration-300`}>
+        <div className={`${bgClass} min-h-screen py-10 transition-colors duration-300`}>
             <div className="w-[85%] md:w-[80%] mx-auto">
-                <h1 className={`text-4xl font-bold text-center mb-2 ${textClass}`}>Manage Your Services</h1>
-                <p className={`text-center text-lg mb-8 ${textClass}`}>
+                <h1 className={`text-4xl font-extrabold text-center mb-4 ${textClass}`}>
+                    Manage Your Services <span className="inline-block ml-2">🛠️</span>
+                </h1>
+                <p className={`text-center text-lg mb-10 ${textClass}`}>
                     Only your added services are shown here.
                 </p>
 
                 {jobs.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center space-y-4 w-full h-[400px] md:h-[600px]">
+                    <div className="flex flex-col items-center justify-center space-y-6 w-full h-[400px] md:h-[600px]">
                         <Lottie
                             animationData={loginAnimation}
                             loop={true}
-                            style={{ width: '100%', height: '100%' }}
+                            style={{ width: '300px', height: '300px' }}
                         />
-                        <p className="text-lg text-blue-400">No bookings found for your account.</p>
+                        <p className="text-lg text-blue-500 font-semibold">No bookings found for your account.</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {jobs.map((job) => {
                             const {
-                                _id, title, description, serviceImageUrl,
-                                serviceArea, priceRange, currency, providerName
+                                _id,
+                                title,
+                                description,
+                                serviceImageUrl,
+                                serviceArea,
+                                priceRange,
+                                currency,
+                                providerName
                             } = job;
                             const image = serviceImageUrl || 'https://i.ibb.co/WNdTbN06/lake-9585821.jpg';
 
                             return (
-                                <div key={_id} className={`rounded-lg overflow-hidden shadow-lg ${cardBg} ${cardText}`}>
-                                    <img src={image} alt={title} className="w-full h-52 object-cover" />
+                                <div
+                                    key={_id}
+                                    className={` shadow-lg overflow-hidden rounded-t-xl  ${cardBg} ${cardText} flex flex-col`}
+                                >
+                                    <img
+                                        src={image}
+                                        alt={title}
+                                        className="w-full h-52 object-cover"
+                                    />
 
-                                    <div className="p-5">
-                                        <h2 className="text-2xl font-bold mb-2">{title}</h2>
-                                        <p className="line-clamp-3 mb-3">{description}</p>
-                                        <p className="text-sm mb-4">
-                                            Posted by <span className="font-semibold">{providerName || 'Unknown'}</span>
-                                        </p>
+                                    <div className="p-6 flex flex-col flex-1 justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-bold mb-3">{title}</h2>
+                                            <p className="line-clamp-3 mb-4">{description}</p>
 
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {serviceArea?.length ? (
-                                                serviceArea.map((area, idx) => (
-                                                    <span key={idx} className="flex items-center gap-1 bg-gray-700 text-white text-sm px-2 py-1 rounded">
-                                                        <HiLocationMarker className="w-4 h-4" />
-                                                        {area}
-                                                    </span>
-                                                ))
-                                            ) : (
-                                                <span className="text-gray-500 text-sm">No area listed</span>
-                                            )}
+                                            <p className="text-sm mb-4">
+                                                Posted by <span className="font-semibold">{providerName || 'Unknown'}</span>
+                                            </p>
+
+                                            <div className="flex flex-wrap gap-2 mb-6">
+                                                {serviceArea?.length ? (
+                                                    serviceArea.map((area, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${tagBg} ${tagText}`}
+                                                        >
+                                                            <HiLocationMarker className="w-5 h-5" />
+                                                            {area}
+                                                        </span>
+                                                    ))
+                                                ) : (
+                                                    <span className="text-gray-500 text-sm">No area listed</span>
+                                                )}
+                                            </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between">
-                                            <span className="font-bold text-lg">
+                                        <div className="flex items-center justify-between mt-auto">
+                                            <span className="font-extrabold text-lg text-blue-500">
                                                 {currency} {priceRange?.[0]} - {priceRange?.[1]}
                                             </span>
 
-                                            <div className="flex gap-3">
+                                            <div className="flex gap-4">
                                                 <Link
-                                                    to={`/EditServices/${_id}`}
-                                                    className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+                                                    to={`/Dashboard/EditServices/${_id}`}
+                                                    className="flex items-center gap-2 px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
                                                 >
-                                                    <HiPencil className="w-4 h-4" />
+                                                    <HiPencil className="w-5 h-5" />
                                                     Edit
                                                 </Link>
                                                 <button
                                                     onClick={() => handleDelete(_id)}
-                                                    className="flex items-center gap-2 px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+                                                    className="flex items-center gap-2 px-5 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white font-semibold transition"
                                                 >
-                                                    <HiTrash className="w-4 h-4" />
+                                                    <HiTrash className="w-5 h-5" />
                                                     Delete
                                                 </button>
                                             </div>

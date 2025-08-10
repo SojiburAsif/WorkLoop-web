@@ -27,7 +27,10 @@ const DashbordLayout = () => {
     return (
         <div className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'} flex min-h-screen`}>
             {/* Sidebar */}
-            <aside className={`w-[16%]  p-6 space-y-6 shadow-lg ${sidebarBg}`}>
+            <aside
+                className={`w-[16%] p-6 space-y-6 shadow-lg ${sidebarBg}`}
+                style={{ position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}
+            >
                 {/* Logo */}
                 <div className="flex items-center space-x-4 mb-8 cursor-default select-none">
                     <Link to="/" className="flex items-center gap-2">
