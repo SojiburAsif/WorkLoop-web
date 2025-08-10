@@ -13,7 +13,7 @@ const Home = () => {
  const jobsPromis = fetch('https://services-server.vercel.app/working').then(res=> res.json())
   return (
     <div className={`${theme === 'light' ? 'bg-gradient-to-br from-blue-50 to-blue-100' : 'bg-black'} min-h-screen transition-colors duration-300`}>
-      <div className="w-full h-[750px]">
+      <div className="">
         <BannerSlider />
       </div>
 

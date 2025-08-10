@@ -29,13 +29,13 @@ const Footer = () => {
                         {theme === 'dark' ? (
                             <img
                                 className="mr-[5px] w-40 h-auto"
-                                src="../../public/dark.png"
+                                src="../../public/ChatGPT Image Aug 10, 2025, 04_19_00 AM.png"
                                 alt="Footer Dark Logo"
                             />
                         ) : (
                             <img
                                 className="mr-[5px] w-40 h-auto"
-                                src="../../public/ChatGPT Image Jun 8, 2025, 01_10_41 PM.png"
+                                src="/ChatGPT Image Jun 8, 2025, 01_10_41 PM.png"
                                 alt="Footer Light Logo"
                             />
                         )}
@@ -72,22 +72,22 @@ const Footer = () => {
                     <h6 className="text-3xl font-semibold mb-4">Pages</h6>
                     <ul className="space-y-2">
                         <li>
-                            <NavLink to="/addtask" className={navLinkClass}>
+                            <NavLink to="/Dashboard/addtask" className={navLinkClass}>
                                 Add Service
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/manage-service" className={navLinkClass}>
+                            <NavLink to="/Dashboard/manage-service" className={navLinkClass}>
                                 Manage Service
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/booked-services" className={navLinkClass}>
+                            <NavLink to="/Dashboard/booked-services" className={navLinkClass}>
                                 Booked Services
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/service-to-do" className={navLinkClass}>
+                            <NavLink to="/Dashboard/service-to-do" className={navLinkClass}>
                                 Service-To-Do
                             </NavLink>
                         </li>

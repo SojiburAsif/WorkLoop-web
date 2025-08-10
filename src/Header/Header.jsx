@@ -30,8 +30,8 @@ const Header = () => {
 
     return (
         // Added fixed, top-0, left-0, w-full, z-50 here:
-        <div className={`fixed top-0 left-0 w-full z-50 shadow-sm ${containerClass}`}>
-            <div className="navbar min-h-[80px] px-4">
+        <div className={`fixed top-0 left-0 w-full z-50  shadow-sm ${containerClass}`}>
+            <div className="navbar min-h-[80px] px-7">
                 <div className="navbar-start flex items-center">
                     <div className="dropdown lg:hidden">
                         <div
@@ -64,7 +64,7 @@ const Header = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/services" className={navLinkClass}>
+                                <NavLink to="/dashboard/services" className={navLinkClass}>
                                     Services
                                 </NavLink>
                             </li>
@@ -106,7 +106,7 @@ const Header = () => {
                         {theme === 'dark' ? (
                             <img
                                 className="w-48 h-auto object-contain"
-                                src="../../public/ChatGPT Image Aug 10, 2025, 04_19_00 AM.png"
+                                src="/ChatGPT Image Aug 10, 2025, 04_19_00 AM.png"
                                 alt="Service Hub Dark Logo"
                             />
                         ) : (

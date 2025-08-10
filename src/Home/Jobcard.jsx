@@ -26,9 +26,8 @@ const Jobcard = ({ job }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={`card w-96 shadow-sm border border-gray-800 transition-all duration-300 ${isDark ? 'bg-black' : 'bg-white'
-        } flex flex-col`}
-      style={{ minHeight: '500px' }}  // adjust height as needed
+      className={`card w-96 shadow-sm transition-all duration-300 ${isDark ? 'bg-black' : 'bg-white'} flex flex-col`}
+      style={{ height: '500px' }}
     >
       <figure className="h-56 overflow-hidden">
         <img
@@ -46,7 +45,7 @@ const Jobcard = ({ job }) => {
         </h2>
 
         {/* Description */}
-        <p className={`line-clamp-3 text-sm ${textClass} flex-grow`}>
+        <p className={`line-clamp-3 text-sm ${textClass} flex-grow overflow-hidden`}>
           {description}
         </p>
 
@@ -80,7 +79,7 @@ const Jobcard = ({ job }) => {
           </span>
 
           <Link
-            to={`/working/${_id}`}
+            to={`/Dashboard/working/${_id}`}
             className="btn bg-blue-500 hover:bg-blue-600 text-white text-base px-6 py-2"
           >
             View <HiArrowNarrowRight className="w-5 h-5 ml-1" />
@@ -88,6 +87,7 @@ const Jobcard = ({ job }) => {
         </div>
       </div>
     </motion.div>
+
 
 
   );

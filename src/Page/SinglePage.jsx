@@ -151,7 +151,7 @@ const SingleServiceDetails = () => {
                     transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
                 >
                     <Link
-                        to={`/booking/${_id}`}
+                        to={`/Dashboard/booking/${_id}`}
                         className={`inline-flex items-center justify-center gap-3 px-8 py-3 rounded-full bg-${primaryColor} hover:bg-blue-600 text-white font-semibold text-lg shadow`}
                     >
                         Book Now <FaArrowRight className="w-4 h-4" />

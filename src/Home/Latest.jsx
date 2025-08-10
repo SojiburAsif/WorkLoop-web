@@ -55,7 +55,7 @@ const cardsData = [
   },
   {
     id: 5,
-    image: "https://i.ibb.co/7gmMT3J/beauty.jpg",
+    image: "https://i.ibb.co.com/671n7qQ9/images-q-tbn-ANd9-Gc-RCSYf-Pv03ikk-Oqm-AGA4ac-qf-OAJDWp15-Ar7-A-s.jpg",
     category: "Beauty & Grooming",
     title: "Top Beauty & Grooming Services at Your Doorstep",
     shortDescription:
@@ -67,7 +67,7 @@ const cardsData = [
   },
   {
     id: 6,
-    image: "https://i.ibb.co/1bKszyR/education.jpg",
+    image: "https://i.ibb.co.com/VWJmhQJG/erik-mclean-aielv-Gx-ZB0g-unsplash.jpg",
     category: "Educational",
     title: "Expert Tutors for All Subjects and Levels",
     shortDescription:
