@@ -29,7 +29,7 @@ const ReviewGrid = () => {
     });
 
     useEffect(() => {
-        fetch("http://localhost:3000/reviews")
+        fetch("https://services-server.vercel.app/reviews")
             .then((res) => res.json())
             .then((data) => setReviews(data))
             .catch(console.error);
@@ -89,7 +89,7 @@ const ReviewGrid = () => {
         const newReview = { userName, userPhoto, rating: Number(rating), comment, date: new Date() };
 
         try {
-            const res = await fetch("http://localhost:3000/reviews", {
+            const res = await fetch("https://services-server.vercel.app/reviews", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newReview),
@@ -165,7 +165,7 @@ const ReviewGrid = () => {
                 </div>
             </div>
 
-    
+
             <dialog
                 id="my_modal_3"
                 className="modal"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext,  } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { FaArrowRight, FaRegClock, FaShieldAlt, FaTags } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -9,7 +9,7 @@ const primaryColor = 'blue-500';
 const SingleServiceDetails = () => {
     const service = useLoaderData();
     const { theme } = useContext(ThemeContext);
-    const [copied, setCopied] = useState(false);
+  
 
     const {
         _id,
@@ -30,15 +30,8 @@ const SingleServiceDetails = () => {
     const subTextClass = isDark ? 'text-gray-300' : 'text-gray-600';
     const borderClass = isDark ? 'border-gray-700' : 'border-gray-200';
 
-    const promoCode = service?.promoCode || 'SAVE20';
-
-    const handleCopy = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1800);
-        } catch (err) { }
-    };
+ 
+  
 
     return (
         <div className={`max-w-7xl rounded-2xl shadow-lg my-9 mx-auto mt-24 px-6 md:px-8 lg:px-12 py-8 ${sectionBg} rounded-3xl`}>

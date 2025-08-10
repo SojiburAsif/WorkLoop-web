@@ -33,32 +33,35 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider)
     }
     useEffect(() => {
-        const unsubscribr = onAuthStateChanged(auth, (currentuser,) => {
-            setuser(currentuser)
-            // SiAwselasticloadbalancing(false)
-            setLoading(false)
+        const unsubscribr = onAuthStateChanged(auth, (currentuser) => {
+            setuser(currentuser);
+            setLoading(false);
 
             if (currentuser?.email) {
-                const userData = { email: currentuser.email }
-                axios.post('https://services-server.vercel.app/jwt', userData,{
-                    withCredentials: true
+                const userData = { email: currentuser.email };
+                axios.post('https://services-server.vercel.app/jwt', userData, {
+                    withCredentials: true,
                 })
                     .then(res => {
-                        // const token = res.data.token
-                        // localStorage.setItem('token', token);
-                        console.log('Token saved re' , res.data);
+                        const token = res.data.token;
+                        if (token) {
+                            localStorage.setItem('token', token);
+                            console.log('Token saved:', token);
+                        }
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        localStorage.removeItem('token');
+                    });
+            } else {
+                localStorage.removeItem('token');
             }
-
         });
         return () => {
             unsubscribr();
-        }
+        };
+    }, []);
 
-
-
-    });
 
 
 

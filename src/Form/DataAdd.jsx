@@ -21,7 +21,7 @@ const AddService = () => {
   const containerClass = theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black';
   const inputBg = theme === 'dark' ? 'bg-gray-900 text-white placeholder-gray-400' : 'bg-gray-100 text-black placeholder-gray-600';
   const readOnlyBg = theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-neutral-100 text-black';
-  const hoverBg = theme === 'dark' ? 'hover:bg-neutral-800' : 'hover:bg-neutral-200';
+
 
   const handleAddService = (e) => {
     e.preventDefault();
@@ -54,10 +54,12 @@ const AddService = () => {
 
     axios.post('https://services-server.vercel.app/working', serviceData)
       .then(res => {
+        console.log(res);
         form.reset();
         Swal.fire("Success!", "Service added successfully!", "success");
       })
       .catch(error => {
+        console.log(error);
         Swal.fire("Error", "Something went wrong!", "error");
       });
   };
