@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+    --font-work-Alumni: "Alumni Sans SC", sans-serif;
+    --font-Tektur: "Saira", sans-serif;
+}
 
 .poppins-font {
     font-family: "Poppins", sans-serif;

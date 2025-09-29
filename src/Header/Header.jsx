@@ -31,7 +31,7 @@ const Header = () => {
     return (
         // Added fixed, top-0, left-0, w-full, z-50 here:
         <div className={`fixed top-0 left-0 w-full z-50  shadow-sm ${containerClass}`}>
-            <div className="navbar min-h-[80px] px-7">
+            <div className="navbar min-h-[80px] md:px-8">
                 <div className="navbar-start flex items-center">
                     <div className="dropdown lg:hidden">
                         <div
@@ -70,33 +70,10 @@ const Header = () => {
                             </li>
                             {user && (
                                 <li>
-                                    <details>
-                                        <summary className="cursor-pointer text-inherit">
-                                            Dashboard
-                                        </summary>
-                                        <ul className="p-2 text-sm space-y-2">
-                                            <li>
-                                                <NavLink to="/addtask" className={navLinkClass}>
-                                                    Add Service
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink to="/manage-service" className={navLinkClass}>
-                                                    Manage Service
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink to="/booked-services" className={navLinkClass}>
-                                                    Booked Services
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink to="/service-to-do" className={navLinkClass}>
-                                                    Service-To-Do
-                                                </NavLink>
-                                            </li>
-                                        </ul>
-                                    </details>
+                                    <NavLink to="/Dashboard" className={navLinkClass}>
+                                        Dashboard
+                                    </NavLink>
+                                    
                                 </li>
                             )}
                         </ul>

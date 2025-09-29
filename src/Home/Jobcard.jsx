@@ -26,7 +26,7 @@ const Jobcard = ({ job }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={`card w-96 shadow-sm transition-all duration-300 ${isDark ? 'bg-black' : 'bg-white'} flex flex-col`}
+      className={`card w-96 transition-all    duration-300 ${isDark ? 'bg-black' : 'bg-white'} flex flex-col`}
       style={{ height: '500px' }}
     >
       <figure className="h-56 overflow-hidden">

@@ -23,7 +23,7 @@ const Banner = () => {
     const isDark = theme === 'dark';
 
     return (
-        <section className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden">
+        <section className="relative  w-full h-[80vh] md:h-[90vh] overflow-hidden">
             {/* Background Slider */}
             <Swiper
                 slidesPerView={1}
@@ -57,7 +57,7 @@ const Banner = () => {
                 className={`absolute inset-0 md:max-w-7xl  z-10 flex flex-col items-center md:items-start justify-center px-4 md:px-12 text-center md:text-left ${isDark ? 'text-white' : 'text-white'
                     }`}
             >
-                <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight max-w-4xl">
+                <h1 className="font-bold text-3xl sm:text-4xl md:text-4xl lg:text-5xl leading-tight max-w-4xl">
                     Your One-Stop Platform for{' '}
                     <span className="text-blue-400">
                         <Typewriter
@@ -85,7 +85,7 @@ const Banner = () => {
                         to="/Dashboard/addtask"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3  shadow-lg"
+                        className="bg-blue-500 hover:bg-blue-600 rounded-sm  text-white font-medium px-6 py-3  shadow-lg"
                     >
                         Post a Service
                     </MotionLink>
@@ -93,7 +93,7 @@ const Banner = () => {
                         to="/services"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        className="bg-white text-gray-800 font-medium px-6 py-3  shadow-lg hover:bg-gray-200"
+                        className="bg-white text-gray-800 rounded-sm  font-medium px-6 py-3  shadow-lg hover:bg-gray-200"
                     >
                         View All Services
                     </MotionLink>
