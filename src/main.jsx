@@ -6,12 +6,8 @@ import { RouterProvider } from 'react-router'
 import AuthProvider from './Contexts/AuthProvider'
 import ThemeProvider from './Them/ThemProvider'
 
-// React Query ইমপোর্ট
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-// Query Client ইনস্ট্যান্স বানানো
 const queryClient = new QueryClient()
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>

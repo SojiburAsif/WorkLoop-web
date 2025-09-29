@@ -9,7 +9,7 @@ const DashbordLayout = () => {
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Close drawer on route change (mobile)
+ 
   useEffect(() => {
     setDrawerOpen(false);
   }, [location]);
