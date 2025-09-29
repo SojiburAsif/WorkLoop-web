@@ -42,7 +42,7 @@ const DashbordLayout = () => {
             <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Dashboard</span>
           </Link>
         </div>
-        {/* optional right area (user avatar / actions) can go here */}
+        {/* optional right area ) can go here */}
       </header>
 
       <div className="flex">

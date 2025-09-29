@@ -105,7 +105,6 @@ const EditServices = () => {
                         className="w-[280px] h-[320px]"
                     />
                 </div>
-
                 {/* Form */}
                 <form
                     onSubmit={handleUpdateService}

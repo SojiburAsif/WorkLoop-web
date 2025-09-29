@@ -10,7 +10,6 @@ const Services = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { theme } = useContext(ThemeContext);
 
-    // থিম অনুযায়ী bg, text, input ক্লাস
     const bgClass = theme === 'dark' ? 'bg-black' : 'bg-gray-50';
     const textClass = theme === 'dark' ? 'text-white' : 'text-gray-900';
     const inputBgClass = theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black';
